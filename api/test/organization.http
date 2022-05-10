@@ -1,0 +1,17 @@
+POST http://localhost:4000/api/organizations HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQzNTM2NjI0LCJleHAiOjE2NDM2MjMwMjR9.gHTtlW_PfGSHZ6QP12sStWfGufgXve6V2swCveNC38c
+Content-Type: application/json
+
+{
+    "name":"Estado plurinacional de Bolivia",
+    "reach": "Nacional"
+}
+###
+POST http://localhost:4000/api/organizations/3 HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjUyMTY0NjkwLCJleHAiOjE2NTIyNTEwOTB9.bF35Xy8kmBlx6r2p1ESVmhNyShwfcYNLrSmC1lWc-KA
+Content-Type: application/json
+
+{
+    "name":"OTB Villa Moderna",
+    "reach": "Vecinal"
+}
