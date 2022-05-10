@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const router = Router();
 
-const {orgCtrl} = require("../controllers");
+const {organizationCtrl} = require("../controllers");
 const { authJwt, verifySignup } = require("../middlewares");
 
 router.post(
   "/:idUser",
   [authJwt.verifyToken],
-  orgCtrl.createOrganization
+  organizationCtrl.createOrganization
 );
 
 module.exports = router;

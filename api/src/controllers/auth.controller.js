@@ -58,7 +58,7 @@ const signIn = async (req, res) => {
     const matchPassword = await comparePassword(password, userFound.password);
 
     if (!matchPassword)
-      return res.status(200).json({
+      return res.status(401).json({
         token: null,
         message: "Nombre de usuario o contraseña incorrecta",
       });
