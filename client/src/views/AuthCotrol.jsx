@@ -1,10 +1,9 @@
 import React from 'react';
-import Dashboard from './Dashboard';
-
+import Dashboard from './Main';
+import Cookies from "js-cookie";
 
 const AuthControl = () => {
-    const token = true;
-  
+  const token = Cookies.get('AUTH_TOKEN');  
   return token?<Dashboard/>:window.location.replace("/login");
 }
 
