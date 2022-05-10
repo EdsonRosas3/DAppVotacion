@@ -11,7 +11,9 @@ import {
   Button,
   AutoComplete,
 } from 'antd';
+import {useNavigate} from 'react-router-dom';
 const { Option } = Select;
+
 const residences = [
   {
     value: 'zhejiang',
@@ -79,9 +81,10 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
-
+  const navigate = useNavigate();
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    navigate('/auth');
   };
 
   const prefixSelector = (

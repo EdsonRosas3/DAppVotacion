@@ -1,12 +1,25 @@
+import React, { useContext, useEffect } from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import UserContext from "../context/user/UserContext";
+import Cookies from "js-cookie";
 import "./Login.css";
+import { useNavigate,Link } from 'react-router-dom'; 
 
 const NormalLoginForm = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const navigate = useNavigate();
+  const {signin,message,auth} = useContext(UserContext);
+  const onFinish = async (values) => {
+    const res = await signin(values);
+    if(res){
+      navigate('/auth');
+    }
   };
-
+  useEffect(() => {
+    if(Cookies.get('AUTH_TOKEN')){
+      navigate('/auth');
+    }
+  }, []);
   return (
     <Form
       name="normal_login"
@@ -16,6 +29,7 @@ const NormalLoginForm = () => {
       }}
       onFinish={onFinish}
     >
+      <span style={{color:"red"}}>{message}</span>
       <Form.Item
         name="username"
         rules={[
@@ -56,7 +70,7 @@ const NormalLoginForm = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="">register now!</a>
+        Or <Link to="/signup">register now!</Link>
       </Form.Item>
     </Form>
   );
