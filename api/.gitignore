@@ -1,0 +1,13 @@
+# Node
+node_modules
+
+# Build
+#build
+
+# environment variables
+#.env
+
+
+#src/storage/images/*
+#src/storage/optimizeimg/300/*
+#src/storage/optimizeimg/700/*
