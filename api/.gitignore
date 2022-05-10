@@ -6,7 +6,7 @@ node_modules
 
 # environment variables
 .env
-
+package-lock.json
 
 #src/storage/images/*
 #src/storage/optimizeimg/300/*
