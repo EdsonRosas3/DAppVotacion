@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 const AuthControl = () => {
   const token = Cookies.get('AUTH_TOKEN');  
-  return token?<Dashboard/>:window.location.replace("/login");
+  return token?<Dashboard/>:window.location.replace("/signin");
 }
 
 export default AuthControl
