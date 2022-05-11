@@ -3,18 +3,17 @@ const User = require("../models/User");
 
 const createOrganization = async (req, res) => {
   try {
-    const { name, reach } = req.body;
-    
+    const { name, description, reach } = req.body;
     const organization = await Organization.create({
       name,
+      description,
       reach,
     });
 
     const user = await User.findByPk(req.params.idUser);
-
     organization.addUser(user);
+    return res.status(201).json(organization);
 
-    return res.status(200).json(organization);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -29,12 +28,41 @@ const getOrganizations = async (req, res) => {
   }
 };
 
-
-
 const getUser = async (req, res) => {};
+
+const getUsersByOrganization = async (req, res) => {
+  try {
+    const users = await Organization.findByPk(req.params.idOrganization,{include:User});
+    return res.status(200).json(users);
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+const addUsersToOrganization = async (req, res) => {
+
+  try {
+    const { users } = req.body;
+    const organization = await Organization.findByPk(req.params.idOrganization);
+    let i = 0;
+    while (i < users.length) {
+      console.log("hola",i);
+      const user = await User.findByPk(users[i]);
+      organization.addUser(user);
+      i++;
+    }
+    return res.status(201).json({message: "Se agrego correctamente"});
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
 module.exports = {
   createOrganization,
   getOrganizations,
-  getUser
+  getUser,
+  getUsersByOrganization,
+  addUsersToOrganization
 }

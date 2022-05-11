@@ -10,4 +10,16 @@ router.post(
   organizationCtrl.createOrganization
 );
 
+router.post(
+  "/:idOrganization/users",
+  [authJwt.verifyToken],
+  organizationCtrl.addUsersToOrganization
+);
+
+router.get(
+  "/:idOrganization/users",
+  [authJwt.verifyToken],
+  organizationCtrl.getUsersByOrganization
+);
+
 module.exports = router;
