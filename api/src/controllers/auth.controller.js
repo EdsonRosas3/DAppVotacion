@@ -49,7 +49,7 @@ const signIn = async (req, res) => {
 
     if (!userFound)
       return res
-        .status(200)
+        .status(401)
         .json({
           token: null,
           message: "Nombre de usuario o contraseña incorrecta",
