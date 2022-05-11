@@ -1,39 +1,44 @@
-import React from "react";
-import { List, Avatar, Button, Skeleton } from "antd";
-import { useNavigate,Link} from "react-router-dom";
-const list = [
-  {
-    id:1,
-    gender: "female",
-    name: "Otb Huaillany",
-    email: "alena.rey@example.com",
-    picture: {
-      large: "https://randomuser.me/api/portraits/women/17.jpg",
-      medium: "https://randomuser.me/api/portraits/med/women/17.jpg",
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/17.jpg",
-    },
-    nat: "CH",
-  },
-  {
-    id:2,
-    gender: "female",
-    name:"Sindicato de Trabajadores",
-    email: "alena.rey@example.com",
-    picture: {
-      large: "https://randomuser.me/api/portraits/women/17.jpg",
-      medium: "https://randomuser.me/api/portraits/med/women/17.jpg",
-      thumbnail: "https://randomuser.me/api/portraits/thumb/women/17.jpg",
-    },
-    nat: "CH",
-  },
-];
+import React, { useEffect, useContext, useState } from "react";
+import { List, Avatar, Skeleton } from "antd";
+import { Link } from "react-router-dom";
+import { Typography, message } from "antd";
+import Create from "./Create";
+import { userService } from "../../services";
+import UserContext from "../../context/user/UserContext";
+
+const { Title } = Typography;
+
 
 const Organizations = () => {
+  const [list, setList] = useState([]);
+  const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const [statusCreated, setStatusCreated] = useState(false);
+
+  const slopeCreate = () => {
+    setStatusCreated(!statusCreated);
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        setLoading(true)
+        const res = await userService.getOrganizations(user.id);
+        setList(res.data.organizations);
+      } catch (error) {
+        message.error("Ocurrio un error")
+      }
+      setLoading(false)
+    };
+    fetch()
+  }, [statusCreated]);
   return (
     <div>
+      <Title level={3}>Mis organizaciones de votación</Title>
+      <Create slopeCreate={slopeCreate}/>
       <List
         className="demo-loadmore-list"
-        loading={false}
+        loading={loading}
         itemLayout="horizontal"
         loadMore={null}
         dataSource={list}
@@ -43,9 +48,9 @@ const Organizations = () => {
               <List.Item.Meta
                 avatar={<Avatar />}
                 title={<Link to={`${item.id}`}>{item.name}</Link>}
-                description="Esta es la descripcion de la organizacion"
+                description={item.description}
               />
-              <div>Alcance</div>
+              <div>{item.reach}</div>
             </Skeleton>
           </List.Item>
         )}

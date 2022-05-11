@@ -10,7 +10,7 @@ export const routes = [
     key: "1",
     icon: <TeamOutlined />,
     label: "Organizaciones",
-    path: "",
+    path: "organizations",
   },
   {
     key: "2",
@@ -27,7 +27,7 @@ export const routes = [
   {
     key: "4",
     icon: <LoginOutlined />,
-    label: "Serrar Sesion",
+    label: "Cerrar Sesion",
     path: "logout",
   },
 ];

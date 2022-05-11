@@ -1,65 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React, { useEffect, useContext, useState } from "react";
+import { List, Avatar, Skeleton } from "antd";
+import { Link } from "react-router-dom";
+import { Typography, message,Card } from "antd";
+import { organizationService } from "../../services";
+import { useParams } from "react-router-dom";
 
-const InfiniteListExample = () => {
+const { Title, Text } = Typography;
+
+const ListUsers = () => {
+  const [list, setList] = useState([]);
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    fetch('https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo')
-      .then(res => res.json())
-      .then(body => {
-        setData([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
+  const { idOrganization } = useParams();
 
   useEffect(() => {
-    loadMoreData();
+    const fetch = async () => {
+      try {
+        setLoading(true);
+        const res = await organizationService.getUsers(idOrganization);
+        setList(res.data.users);
+        setData(res.data);
+      } catch (error) {
+        message.error("Ocurrio un error");
+      }
+      setLoading(false);
+    };
+    fetch();
   }, []);
-
   return (
-    <div
-      id="scrollableDiv"
-      style={{
-        height: 450,
-        overflow: 'auto',
-        padding: '0 16px',
-        border: '1px solid rgba(140, 140, 140, 0.35)',
-      }}
-    >
-      <InfiniteScroll
-        dataLength={data.length}
-        next={loadMoreData}
-        hasMore={data.length < 50}
-        loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-        scrollableTarget="scrollableDiv"
-      >
+    <div>
+      <Title level={3}>
+        {data.name} <Link to={""}>{data.reach}</Link>
+      </Title>
+      <Text type="secondary">{data.description}</Text>
+      <Title level={5}>Integrantes:</Title>
+      <Card  bordered={true}>
         <List
-          dataSource={data}
-          renderItem={item => (
-            <List.Item key={item.id}>
-              <List.Item.Meta
-                avatar={<Avatar src={item.picture.large} />}
-                title={<a href="https://ant.design">{item.name.last}</a>}
-                description={item.email}
-              />
-              <div>Content</div>
+          className="demo-loadmore-list"
+          loading={loading}
+          itemLayout="horizontal"
+          loadMore={null}
+          dataSource={list}
+          renderItem={(item) => (
+            <List.Item>
+              <Skeleton avatar title={false} loading={item.loading} active>
+                <List.Item.Meta
+                  avatar={<Avatar />}
+                  title={
+                    <Title level={5}>
+                      {item.name} {item.last_name}
+                    </Title>
+                  }
+                  description={`Username: ${item.username} Email: ${item.email}`}
+                />
+                <div>{"Avilitado"}</div>
+              </Skeleton>
             </List.Item>
           )}
         />
-      </InfiniteScroll>
+      </Card>
     </div>
   );
 };
 
-export default () => <InfiniteListExample />;
+export default ListUsers;

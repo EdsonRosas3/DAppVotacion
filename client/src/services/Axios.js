@@ -7,7 +7,7 @@ export default function AxiosFactory(path = "", apiVersion = "") {
   const axiosInstance = axios.create({
     baseURL: `${API_REST_URL}${apiVersion}${path}`,
     headers: {
-        'x-access-token': `${Cookies.get('AUTH-TOKEN')}`,
+      authorization: `${Cookies.get('AUTH_TOKEN')}`
     },
   });
   /* axiosInstance.interceptors.response.use(

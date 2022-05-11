@@ -1,134 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import {
   Form,
   Input,
-  InputNumber,
-  Cascader,
-  Select,
   Row,
   Col,
-  Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
 import { Typography } from 'antd';
-import { Card } from 'antd';
 import {useNavigate} from 'react-router-dom';
-const { Option } = Select;
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
+import UserContext from '../context/user/UserContext';
 const { Title } = Typography;
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    navigate('/auth');
-  };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+  const {signup,message} = useContext(UserContext);
+  const onFinish = async (values) => {
+    const res = await signup(values);
+    if(res){
+      navigate('/auth/organizations');
     }
   };
 
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
   return (
       <Row style = {{height:"100vh"}} justify="space-around" align="middle">
         <Col span={12} style={{ boxShadow: "rgb(179 179 179 / 85%) -4px 7px 20px"}}>
@@ -144,6 +37,7 @@ const RegistrationForm = () => {
             }}
             scrollToFirstError
           >
+            <span style = {{color:"red"}}>{message}</span>
             <Form.Item
               name="name"
               label="Nombre"
@@ -155,7 +49,7 @@ const RegistrationForm = () => {
             </Form.Item>
 
             <Form.Item
-              name="last"
+              name="last_name"
               label="Apellido"
               labelCol={{span:6}}
               rules={[{ required: true, message: '¡Por favor ingrese su apellido!', whitespace: true }]}

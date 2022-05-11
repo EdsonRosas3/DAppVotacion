@@ -6,10 +6,10 @@ const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { username: username } });
     if (user)
-      return res.status(200).json({ message: "El nombre de usuario ya existe" });
+      return res.status(400).json({ message: "El nombre de usuario ya existe" });
     const e = await User.findOne({ where: { email: email } });
     if (e)
-      return res.status(200).json({ message: "El email ya esta registrado" });
+      return res.status(400).json({ message: "El email ya esta registrado" });
   } catch (error) {
     res.status(500).json({ message: error });
   }

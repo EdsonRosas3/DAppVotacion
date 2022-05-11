@@ -33,6 +33,28 @@ const UserState = (props) => {
         setMessage("")
         setAuth(true)
         Cookies.set("AUTH_TOKEN", res.data.token);
+        Cookies.set("AUTH_USER", JSON.stringify(res.data.user));
+        dispatch({type:LOGIN,payload:res.data})
+        return true;
+      }
+    } catch (error) {
+      if(error.response){
+        setMessage(error.response.data.message)
+      }
+      return false;
+    }
+  };
+
+  const signup = async (user) => {
+    const api = AxiosFactory("auth");
+    try {
+      console.log(user);
+      const res = await api.post("/signup",user)
+      if(res.status === 201){
+        setMessage("")
+        setAuth(true)
+        Cookies.set("AUTH_TOKEN", res.data.token);
+        Cookies.set("AUTH_USER", JSON.stringify(res.data.user));
         dispatch({type:LOGIN,payload:res.data})
         return true;
       }
@@ -68,6 +90,7 @@ const UserState = (props) => {
         message,
         setMessage,
         signin,
+        signup,
         logout,
         updateDataUser,
       }}

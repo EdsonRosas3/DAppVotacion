@@ -2,12 +2,12 @@ import AxiosFactory from "./Axios";
 
 export const organizationService = {
   
-  getOrganizations: (idUser) => {   
+  getUsers: (idOrg) => {   
     const api = AxiosFactory("organizations");
-    return api.get("/"+idUser);
+    return api.get("/"+idOrg+"/users");
   },
   
-  addOrganization: (data,idUser) => {
+  addOrganization: (idUser,data) => {
     const api = AxiosFactory("organizations");
     return api.post("/"+idUser, data);
   },
