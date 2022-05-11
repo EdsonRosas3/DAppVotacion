@@ -16,6 +16,7 @@ import {
 
 import { Menu, Dropdown, message, Space, Tooltip } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { Outlet } from 'react-router-dom';
 
 const Organization = () => {
 
@@ -69,50 +70,55 @@ const Organization = () => {
     />
   );
   return (
-    <Card style={{ width: "100%" }}  bordered={true}>
-      <Button type="primary" onClick={showModal}>
-        Registrar Organizacion
-      </Button>
-      <Modal title="REGISTRO DE ORGANIZACION" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-      <Form
-        form={form}
-        name="register"
-        onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
-        }}
-        scrollToFirstError
-      >
-        <Form.Item
-          name="name"
-          label="Nombre"
-          tooltip="¿Como se llama la organizacion?"
-          rules={[{ required: true, message: '¡Por favor ingrese su apodo!', whitespace: true }]}
+
+    <div>
+      Organization
+      <Outlet/>
+      <Card style={{ width: "100%" }}  bordered={true}>
+        <Button type="primary" onClick={showModal}>
+          Registrar Organizacion
+        </Button>
+        <Modal title="REGISTRO DE ORGANIZACION" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form
+          form={form}
+          name="register"
+          onFinish={onFinish}
+          initialValues={{
+            residence: ['zhejiang', 'hangzhou', 'xihu'],
+            prefix: '86',
+          }}
+          scrollToFirstError
         >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name="name"
+            label="Nombre"
+            tooltip="¿Como se llama la organizacion?"
+            rules={[{ required: true, message: '¡Por favor ingrese su apodo!', whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          name="description"
-          label="descripción"
-          tooltip="¿Que deescripcion tiene?"
-          rules={[{ required: true, message: '¡Por favor ingrese la descripcion!', whitespace: true }]}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            name="description"
+            label="descripción"
+            tooltip="¿Que deescripcion tiene?"
+            rules={[{ required: true, message: '¡Por favor ingrese la descripcion!', whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
 
-        <Dropdown overlay={menu} >
-          <Button>
-            <Space>
-              Alcance
-            </Space>
-          </Button>
-        </Dropdown>
+          <Dropdown overlay={menu} >
+            <Button>
+              <Space>
+                Alcance
+              </Space>
+            </Button>
+          </Dropdown>
 
-      </Form>
-      </Modal>
-    </Card>
+        </Form>
+        </Modal>
+      </Card>
+    </div>
 
   )
 }
