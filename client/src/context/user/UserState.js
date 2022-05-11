@@ -29,18 +29,17 @@ const UserState = (props) => {
     const api = AxiosFactory("auth");
     try {
       const res = await api.post("/signin",userAcces)
-      if(res.data.token){
+      if(res.status === 200){
         setMessage("")
         setAuth(true)
         Cookies.set("AUTH_TOKEN", res.data.token);
         dispatch({type:LOGIN,payload:res.data})
         return true;
-      }else{
-        setMessage(res.data.message)
-        return false;
       }
     } catch (error) {
-      console.log(error)
+      if(error.response){
+        setMessage(error.response.data.message)
+      }
       return false;
     }
   };

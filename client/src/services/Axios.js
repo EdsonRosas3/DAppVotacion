@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie"
 
 const API_REST_URL = "http://localhost:4000/api/";
 
@@ -6,10 +7,10 @@ export default function AxiosFactory(path = "", apiVersion = "") {
   const axiosInstance = axios.create({
     baseURL: `${API_REST_URL}${apiVersion}${path}`,
     headers: {
-        'x-access-token': `Token`,
+        'x-access-token': `${Cookies.get('AUTH-TOKEN')}`,
     },
   });
-  axiosInstance.interceptors.response.use(
+  /* axiosInstance.interceptors.response.use(
     function (response) {
       return Promise.resolve(response);
     },
@@ -27,6 +28,6 @@ export default function AxiosFactory(path = "", apiVersion = "") {
       }
       return Promise.reject(responseError);
     }
-  );
+  ); */
   return axiosInstance;
 }

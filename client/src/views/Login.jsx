@@ -12,14 +12,16 @@ const NormalLoginForm = () => {
   const navigate = useNavigate();
   const {signin,message,auth} = useContext(UserContext);
   const onFinish = async (values) => {
+    
     const res = await signin(values);
+    
     if(res){
-      navigate('/auth');
+      navigate('/auth/organizations');
     }
   };
   useEffect(() => {
     if(Cookies.get('AUTH_TOKEN')){
-      navigate('/auth');
+      navigate('/auth/organizations');
     }
   }, []);
 
