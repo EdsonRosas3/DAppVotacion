@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/api/users HTTP/1.1
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQzNTM2NjI0LCJleHAiOjE2NDM2MjMwMjR9.gHTtlW_PfGSHZ6QP12sStWfGufgXve6V2swCveNC38c
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjIzMjMwLCJleHAiOjE2NTIzMDk2MzB9.9AebGKWenMRXjRK_eCZLKYlJ9vNgyZBGD5-UJC1iXRg
 
 ###
 POST http://localhost:4000/api/users HTTP/1.1
@@ -37,3 +37,6 @@ Content-Type: application/json
 }
 
 
+###
+GET http://localhost:4000/api/users/2/organizations HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw

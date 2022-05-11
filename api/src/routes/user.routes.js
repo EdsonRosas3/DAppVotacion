@@ -9,9 +9,16 @@ router.post(
   [authJwt.verifyToken,authJwt.isAdmin],
   userCtrl.createUser
 );
+
 router.get(
   "/",
   [authJwt.verifyToken],
   userCtrl.getUsers
+);
+
+router.get(
+  "/:idUser/organizations",
+  [authJwt.verifyToken],
+  userCtrl.getOrganizationsByUser
 );
 module.exports = router;

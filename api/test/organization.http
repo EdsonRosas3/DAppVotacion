@@ -1,17 +1,33 @@
 POST http://localhost:4000/api/organizations/2 HTTP/1.1
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjIwMjg0LCJleHAiOjE2NTIzMDY2ODR9._vxMvkYLdrWkYVLlU6AKJng41xIcXafY7d6qG-0WN6w
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw
 Content-Type: application/json
 
 {
     "name":"Estado plurinacional de Bolivia",
+    "description": "lorem ipsum",
     "reach": "Nacional" 
 }
 ###
-POST http://localhost:4000/api/organizations/3 HTTP/1.1
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjUyMTY0NjkwLCJleHAiOjE2NTIyNTEwOTB9.bF35Xy8kmBlx6r2p1ESVmhNyShwfcYNLrSmC1lWc-KA
+POST http://localhost:4000/api/organizations/2 HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw
 Content-Type: application/json
 
 {
     "name":"OTB Villa Moderna",
+    "description": "lorem ipsum",
     "reach": "Vecinal"
 }
+
+
+###
+POST  http://localhost:4000/api/organizations/2/users HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw
+Content-Type: application/json
+
+{
+    "users": [1,3]
+}
+
+###
+GET http://localhost:4000/api/organizations/1/users HTTP/1.1
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw

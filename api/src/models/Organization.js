@@ -11,9 +11,12 @@ Organization.init({
   name: {
     type: DataTypes.STRING
   },
+  description: {
+    type: DataTypes.STRING
+  },
   reach:{
     type: DataTypes.ENUM,
-    values: ['Nacional','Departamental', 'Municipal','Vecinal']
+    values: ['Nacional','Departamental','Municipal','Vecinal']
   },
 }, {
     sequelize,
