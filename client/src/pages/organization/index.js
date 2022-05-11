@@ -73,7 +73,6 @@ const Organization = () => {
 
     <div>
       Organization
-      <Outlet/>
       <Card style={{ width: "100%" }}  bordered={true}>
         <Button type="primary" onClick={showModal}>
           Registrar Organizacion
@@ -118,6 +117,7 @@ const Organization = () => {
         </Form>
         </Modal>
       </Card>
+      <Outlet/>
     </div>
 
   )
