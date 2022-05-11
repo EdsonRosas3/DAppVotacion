@@ -70,7 +70,7 @@ const ListUsers = () => {
                   }
                   description={`Username: ${item.username} Email: ${item.email}`}
                 />
-                <div>{"Avilitado"}</div>
+                <div>{"Habilitado"}</div>
               </Skeleton>
             </List.Item>
           )}

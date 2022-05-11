@@ -20,9 +20,9 @@ const Postulate = () => {
   return (
     <>
         <Button type="primary" onClick={showModal} >
-            Postular
+            Postular como candidato
         </Button>
-        <Modal title="Escoja un candidato" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+        <Modal title="Postularme como cadidato" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
             <p>Some contents...</p>
             <p>Some contents...</p>
             <p>Some contents...</p>
