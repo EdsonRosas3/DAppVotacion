@@ -1,5 +1,6 @@
 import React, { useEffect ,useState} from "react";
 import { Modal, Button } from 'antd';
+import { Row, Col } from 'antd';
 import {
     Form,
     Input,
@@ -163,7 +164,10 @@ const Postulate = () => {
                     {postulantes}
                 </Select>
                 </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
+                <Form.Item {...tailFormItemLayout} style={{margin:"1em"}}>
+     
+                    <Button onClick={handleCancel} style={{marginRight:"1em"}}>Cancelar</Button>
+     
                     <Button type="primary" htmlType="submit">
                         Registrar
                     </Button>
