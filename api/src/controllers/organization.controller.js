@@ -30,24 +30,13 @@ const getOrganizations = async (req, res) => {
 
 const getUser = async (req, res) => {};
 
-const getUsersByOrganization = async (req, res) => {
-  try {
-    const users = await Organization.findByPk(req.params.idOrganization,{include:User});
-    return res.status(200).json(users);
-
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
-
 const addUsersToOrganization = async (req, res) => {
-
   try {
     const { users } = req.body;
     const organization = await Organization.findByPk(req.params.idOrganization);
+    
     let i = 0;
     while (i < users.length) {
-      console.log("hola",i);
       const user = await User.findByPk(users[i]);
       organization.addUser(user);
       i++;
@@ -59,10 +48,20 @@ const addUsersToOrganization = async (req, res) => {
   }
 };
 
+const getUsersByOrganization = async (req, res) => {
+  try {
+    const users = await Organization.findByPk(req.params.idOrganization,{include:User});
+    return res.status(200).json(users);
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createOrganization,
   getOrganizations,
   getUser,
-  getUsersByOrganization,
-  addUsersToOrganization
+  addUsersToOrganization,
+  getUsersByOrganization
 }

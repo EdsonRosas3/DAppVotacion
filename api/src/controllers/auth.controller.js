@@ -17,7 +17,7 @@ const signUp = async (req, res) => {
     const token = jwt.sign({ id: newUser.id }, config.SECRET, {
       expiresIn: 86400, //24 horas
     });
-    return res.json({ token });
+    return res.status(201).json({ token });
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -49,7 +49,7 @@ const signIn = async (req, res) => {
 
     if (!userFound)
       return res
-        .status(200)
+        .status(401)
         .json({
           token: null,
           message: "Nombre de usuario o contraseña incorrecta",
