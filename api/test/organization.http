@@ -30,4 +30,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/api/organizations/3/users HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUyMjUyNzg2LCJleHAiOjE2NTIzMzkxODZ9.8tKmAf1Qj_ukobZWGDMwQYOCxUugiGt2cbmnYPeZ-T4
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUyNzU5NzA1LCJleHAiOjE2NTI4NDYxMDV9.K83uB8_CO-MmTZfTpe_mi6YHTKM4YfPeLPLdPRjwB-4
