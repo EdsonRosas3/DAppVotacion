@@ -8,6 +8,7 @@ import AddUser   from "./AddUser";
 import Choice    from "./Choice";
 import Postulate from "./Postulate";
 import { Row, Col } from 'antd';
+import ListPostulante from "./ListPostulate";
 
 const { Title, Text } = Typography;
 
@@ -50,6 +51,8 @@ const ListUsers = () => {
           </Row>
       </Title>
       <Text type="secondary">{data.description}</Text>
+      <Title level={5}>Lista de postulantes:</Title>
+      <ListPostulante/>
       <Title level={5}>Integrantes:</Title>
       <Card  bordered={true}>
         <List
