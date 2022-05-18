@@ -123,6 +123,16 @@ const Create = ({slopeCreate}) => {
               ))}
             </Select>
           </Form.Item>
+          <Form.Item
+            name="type"
+            label="Tipo de organizacion"
+            rules={[{ required: true, message: 'Por favor ingrese el tipo de organizacion!' }]}
+          >
+            <Select placeholder="Seleccione una organizacion">
+              <Option value="centralized">Centralizada</Option>
+              <Option value="decentralized">Descentralizada</Option>
+            </Select>
+          </Form.Item>
           <Form.Item style={{ textAlign: "center" }}>
             <Button onClick={handleCancel}>Cancelar</Button>
             <Button type="primary" htmlType="submit">

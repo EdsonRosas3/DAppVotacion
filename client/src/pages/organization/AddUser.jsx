@@ -1,58 +1,29 @@
 import React, { useEffect ,useState} from "react";
-import { Modal, Button, Select } from 'antd';
-import { Row, Col } from 'antd';
+import { Modal, Button, Select ,Form} from 'antd';
+import { Row, Col, message } from 'antd';
+import { organizationService,userService } from "../../services";
+import { useParams } from "react-router-dom";
 
-const usuariosAPI =[
-    {
-        id:1,
-        name: "Tom",
-        last_name: "Jerry",
-        username: "user",
-        email: "user@user.com",
-        password: "123456",
-    },
-    {
-        id:2,
-        name: "Epson",
-        last_name: "Jerry",
-        username: "user",
-        email: "user@user.com",
-        password: "123456",
-    },
-    {
-        id:3,
-        name: "Exson",
-        last_name: "Jerry",
-        username: "user",
-        email: "user@user.com",
-        password: "123456",
-    },
-    {
-        id:4,
-        name: "Exson",
-        last_name: "Jerrasdasdy",
-        username: "user",
-        email: "user@user.com",
-        password: "123456",
-    }
-]
-const options = [];
-
-for (let i = 0; i < usuariosAPI.length; i++) {
-  const id =  usuariosAPI[i].id;
-  const name =  usuariosAPI[i].name;
-  const last =  usuariosAPI[i].last_name;
-  options.push(
-    {
-        label: `Nombre: ${name}`+` Apellido: ${last}`,
-        value:id,
-    }
-  );
-}
 
 const AddUser = () => {
    const [isModalVisible, setIsModalVisible] = useState(false); 
-   const [users, setUsers] = useState();  
+   const [ids, setIds] = useState();
+   const [list, setList] = useState([]);
+   const { idOrganization } = useParams();  
+
+
+  const options = [];
+
+  for (let i = 0; i < list.length; i++) {
+    const id =  list[i].id;
+    const username =  list[i].username;
+    options.push(
+      {
+          label: `${username}`,
+          value:id,
+      }
+    );
+  }
 
    const showModal = () => {
      setIsModalVisible(true);
@@ -60,7 +31,6 @@ const AddUser = () => {
    
    const handleOk = () => {
      setIsModalVisible(false);
-     //Guardar en la API
    };
    
    const handleCancel = () => {
@@ -72,14 +42,35 @@ const AddUser = () => {
     style: {
       width: '100%',
     },
-    users,
+    ids,
     options,
     onChange: (newUser) => {
-      setUsers(newUser);
+      setIds(newUser);
     },
     placeholder: 'Select usuario...',
     maxTagCount: 'responsive',
   };
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    setIsModalVisible(false);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await organizationService.getUsers(idOrganization);
+        setList(res.data.users);
+      } catch (error) {
+        message.error("Ocurrio un error");
+      }
+    };
+    fetch();
+  }, []);
 
   return (
     <>
@@ -87,19 +78,40 @@ const AddUser = () => {
         Agregar Usuarios
       </Button>
       <Modal title="Agregar usuarios" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-        <Select {...selectProps} />
-        {console.log(users)}
-        <Row gutter={16} style={{margin:"2em"}}>
-            <Col className="gutter-row" span={6}>
-                   
-            </Col>
-            <Col className="gutter-row" span={6}>
-                <Button onClick={handleCancel}>Cancelar</Button>
-            </Col>
-            <Col className="gutter-row" span={6}>
-                <Button type="primary" onClick={handleOk}>Guardar</Button>
-            </Col>
-        </Row>
+      <Form
+        name="basic"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+            name="users"
+            label="Seleccione participantes"
+            rules={[
+              {
+                required: true,
+                message: '¡Por favor seleccione un usuario!',
+              },
+            ]}
+        >
+          <Select {...selectProps} />
+        </Form.Item>
+         
+          {console.log(ids)}
+          <Row gutter={16} style={{margin:"2em"}}>
+              <Col className="gutter-row" span={6}>
+                    
+              </Col>
+              <Col className="gutter-row" span={6}>
+                  <Button onClick={handleCancel}>Cancelar</Button>
+              </Col>
+              <Col className="gutter-row" span={6}>
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                  <Button type="primary" htmlType="submit">Guardar</Button>
+                </Form.Item>    
+              </Col>
+          </Row>
+        </Form>
       </Modal>
     </>
   );
