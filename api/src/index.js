@@ -5,7 +5,7 @@ const {config} = require("dotenv");
 config();
 
 db.sequelizeConected
-  .sync({ force: false })
+  .sync({ force:true })
   .then(async () => {
     console.log("Base de datos sincornisado");
     await initialSetup.createUsers();
