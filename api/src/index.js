@@ -7,7 +7,7 @@ config();
 db.sequelizeConected
   .sync({ force: false })
   .then(async () => {
-    console.log("Base de datos sincornisado");
+    console.log("Base de datos sincronizado");
     await initialSetup.createUsers();
   })
   .catch((e) => {

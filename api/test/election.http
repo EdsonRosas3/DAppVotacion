@@ -1,0 +1,13 @@
+POST http://localhost:4000/api/elections/1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUzMTkxNDcxLCJleHAiOjE2NTMyNzc4NzF9.Smwra-5fKb-5hfrL0Ozb_0IH5jhQMJHbesdo7vmshl8
+Content-Type: application/json
+
+{
+    "postulation_StartDate":"2022-05-20",
+    "postulation_EndDate": "2022-05-21",
+    "date": "2022-05-22" 
+}
+
+###
+GET http://localhost:4000/api/elections/exist/1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUzMTkxNDcxLCJleHAiOjE2NTMyNzc4NzF9.Smwra-5fKb-5hfrL0Ozb_0IH5jhQMJHbesdo7vmshl8
