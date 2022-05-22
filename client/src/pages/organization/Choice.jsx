@@ -1,13 +1,14 @@
-import React, { useEffect ,useState} from "react";
+import React, {useState} from "react";
 import { Modal, Button } from 'antd';
 import { Form, DatePicker } from 'antd';
-import { Row, Col } from 'antd';
-
+import { Row, Col,message } from 'antd';
+import { electionService } from '../../services';
+import { useParams } from "react-router-dom";
 
 const Choice = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const {idOrganization} = useParams();
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -62,16 +63,25 @@ const Choice = () => {
   };
 
 
-  const onFinish = (fieldsValue) => {
-    // Should format date value before submit.
+  const onFinish = async (fieldsValue) => {
+
     const rangeValue = fieldsValue['range'];
     const values = {
       ...fieldsValue,
       'range': [rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')],
       'date': fieldsValue['date'].format('YYYY-MM-DD'),
+      'postulation_StartDate':rangeValue[0].format('YYYY-MM-DD'),
+      'postulation_EndDate':rangeValue[1].format('YYYY-MM-DD'),
     };
+    try {
+      await electionService.createElection(idOrganization,values);
+      message.success("Elección creada");
+    } catch (error) {
+      message.error("Ocurrio un error");
+    }
+    
     setIsModalVisible(false);
-    console.log('Received values of form: ', values);
+  
   };
 
   return (

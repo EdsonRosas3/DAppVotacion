@@ -16,8 +16,12 @@ Organization.init({
   },
   reach:{
     type: DataTypes.ENUM,
-    values: ['Nacional','Departamental','Municipal','Vecinal']
+    values: ['Nacional','Departamental','Municipal','Vecinal','Institucional']
   },
+  type:{
+    type: DataTypes.ENUM,
+    values: ['Centralizada','Descentralizada']
+  }
 }, {
     sequelize,
     modelName: "organization",

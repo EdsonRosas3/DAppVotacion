@@ -1,13 +1,13 @@
 import React, { useEffect, useContext, useState } from "react";
 import { List, Avatar, Skeleton } from "antd";
 import { Link } from "react-router-dom";
-import { Typography, message,Card } from "antd";
+import { Typography, message, Card } from "antd";
 import { organizationService } from "../../services";
 import { useParams } from "react-router-dom";
-import AddUser   from "./AddUser";
-import Choice    from "./Choice";
+import AddUser from "./AddUser";
+import Choice from "./Choice";
 import Postulate from "./Postulate";
-import { Row, Col } from 'antd';
+import { Row, Col } from "antd";
 import ListPostulante from "./ListPostulate";
 
 const { Title, Text } = Typography;
@@ -17,7 +17,11 @@ const ListUsers = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const { idOrganization } = useParams();
+  const [updateListUser, setUpdateListUser] = useState(false);
 
+  const updateListUsers = () => {
+    setUpdateListUser(!updateListUser);
+  }
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -31,30 +35,30 @@ const ListUsers = () => {
       setLoading(false);
     };
     fetch();
-  }, []);
+  }, [updateListUser]);
   return (
     <div>
       <Title level={3}>
-          <Row gutter={16}>
-              <Col className="gutter-row" span={12}>
-                {data.name} <Link to={""}>{data.reach}</Link>
-              </Col>
-              <Col className="gutter-row" span={4}>
-                <AddUser/>
-              </Col>
-              <Col className="gutter-row" span={4}>
-                <Choice/>
-              </Col>
-              <Col className="gutter-row" span={4}>
-                <Postulate/>
-              </Col>
-          </Row>
+        <Row gutter={16}>
+          <Col className="gutter-row" span={12}>
+            {data.name} <Link to={""}>{data.reach}</Link>
+          </Col>
+          <Col className="gutter-row" span={4}>
+            <AddUser updateListUsers={updateListUsers}/>
+          </Col>
+          <Col className="gutter-row" span={4}>
+            <Choice />
+          </Col>
+          <Col className="gutter-row" span={4}>
+            <Postulate />
+          </Col>
+        </Row>
       </Title>
       <Text type="secondary">{data.description}</Text>
       <Title level={5}>Lista de postulantes:</Title>
-      <ListPostulante/>
+      <ListPostulante />
       <Title level={5}>Integrantes:</Title>
-      <Card  bordered={true}>
+      <Card bordered={true}>
         <List
           className="demo-loadmore-list"
           loading={loading}

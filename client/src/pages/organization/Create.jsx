@@ -5,6 +5,10 @@ import { organizationService } from "../../services";
 const { Option } = Select;
 const options = [
   {
+    key: "Institucional",
+    name: "Institucional",
+  },
+  {
     key: "Vecinal",
     name: "Vecinal",
   },
@@ -129,8 +133,8 @@ const Create = ({slopeCreate}) => {
             rules={[{ required: true, message: 'Por favor ingrese el tipo de organizacion!' }]}
           >
             <Select placeholder="Seleccione una organizacion">
-              <Option value="centralized">Centralizada</Option>
-              <Option value="decentralized">Descentralizada</Option>
+              <Option value="Centralizada">Centralizada</Option>
+              <Option value="Descentralizada">Descentralizada</Option>
             </Select>
           </Form.Item>
           <Form.Item style={{ textAlign: "center" }}>

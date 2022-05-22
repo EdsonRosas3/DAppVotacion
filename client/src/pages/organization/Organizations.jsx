@@ -34,7 +34,7 @@ const Organizations = () => {
   }, [statusCreated]);
   return (
     <div>
-      <Title level={3}>Mis organizaciones de votación</Title>
+      <Title level={3}>Mis organizaciones</Title>
       <Create slopeCreate={slopeCreate}/>
       <List
         className="demo-loadmore-list"
@@ -50,7 +50,7 @@ const Organizations = () => {
                 title={<Link to={`${item.id}`}>{item.name}</Link>}
                 description={item.description}
               />
-              <div>{item.reach}</div>
+              <div>{item.reach+" - "+item.type}</div>
             </Skeleton>
           </List.Item>
         )}

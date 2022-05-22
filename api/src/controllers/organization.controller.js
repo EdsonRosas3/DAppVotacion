@@ -4,11 +4,12 @@ const Election= require("../models/Election");
 
 const createOrganization = async (req, res) => {
   try {
-    const { name, description, reach } = req.body;
+    const { name, description, reach, type } = req.body;
     const organization = await Organization.create({
       name,
       description,
       reach,
+      type
     });
 
     const user = await User.findByPk(req.params.idUser);
@@ -45,7 +46,7 @@ const addUsersToOrganization = async (req, res) => {
     return res.status(201).json({message: "Se agrego correctamente"});
 
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json({message: "Error al agregar usuarios"});
   }
 };
 
