@@ -82,11 +82,11 @@ const Choice = () => {
       <Modal title="Inicia una eleccion" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
         <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
           
-          <Form.Item name="range" label="Fecha" {...rangeConfig}>
+          <Form.Item name="range" label="fechas de postulación" {...rangeConfig}>
             <RangePicker />
           </Form.Item>
 
-          <Form.Item name="date" label="Dia de Votacion" {...config}>
+          <Form.Item name="date" label="Dia de votación" {...config}>
             <DatePicker />
           </Form.Item>
           <Row gutter={16} style={{margin:"2em"}}>
