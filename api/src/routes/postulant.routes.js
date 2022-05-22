@@ -9,5 +9,9 @@ router.post(
   [authJwt.verifyToken],
   postulantCtrl.addCandidateToElection
 );
-
+router.get(
+  "/iscandidate/:idElection/:idUser",
+  [authJwt.verifyToken],
+  postulantCtrl.userIsCandidate
+);
 module.exports = router;

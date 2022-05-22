@@ -4,7 +4,7 @@ import { Row, Col, message } from "antd";
 import { userService, organizationService } from "../../services";
 import { useParams } from "react-router-dom";
 
-const AddUser = ({updateListUsers}) => {
+const AddUser = ({updateListUsers,electionInfo}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [ids, setIds] = useState();
   const [list, setList] = useState([]);
@@ -82,7 +82,7 @@ const AddUser = ({updateListUsers}) => {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" disabled={electionInfo.election} onClick={showModal}>
         Agregar miembros
       </Button>
       <Modal

@@ -10,5 +10,15 @@ export const electionService = {
   deleteElection: (id) => {
     const api = AxiosFactory("elections");
     return api.delete("/"+id);
+  },
+
+  infoElection: (idOrg) => {
+    const api = AxiosFactory("elections");
+    return api.get("/exist/"+idOrg);
+  },
+  
+  allCandidates: (idElection) => {
+    const api = AxiosFactory("elections");
+    return api.get("/"+idElection+"/postulants");
   }
 };

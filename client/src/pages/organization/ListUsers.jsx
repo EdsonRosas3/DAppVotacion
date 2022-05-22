@@ -1,34 +1,24 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { List, Avatar, Skeleton } from "antd";
-import { Link } from "react-router-dom";
 import { Typography, message, Card } from "antd";
 import { organizationService } from "../../services";
 import { useParams } from "react-router-dom";
-import AddUser from "./AddUser";
-import Choice from "./Choice";
-import Postulate from "./Postulate";
-import { Row, Col } from "antd";
-import ListPostulante from "./ListPostulate";
 
-const { Title, Text } = Typography;
 
-const ListUsers = () => {
+const { Title } = Typography;
+
+const ListUsers = ({updateListUser}) => {
   const [list, setList] = useState([]);
-  const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const { idOrganization } = useParams();
-  const [updateListUser, setUpdateListUser] = useState(false);
-
-  const updateListUsers = () => {
-    setUpdateListUser(!updateListUser);
-  }
+  
   useEffect(() => {
     const fetch = async () => {
       try {
         setLoading(true);
         const res = await organizationService.getUsers(idOrganization);
         setList(res.data.users);
-        setData(res.data);
+        setLoading(false);
       } catch (error) {
         message.error("Ocurrio un error");
       }
@@ -37,26 +27,7 @@ const ListUsers = () => {
     fetch();
   }, [updateListUser]);
   return (
-    <div>
-      <Title level={3}>
-        <Row gutter={16}>
-          <Col className="gutter-row" span={12}>
-            {data.name} <Link to={""}>{data.reach}</Link>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <AddUser updateListUsers={updateListUsers}/>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <Choice />
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <Postulate />
-          </Col>
-        </Row>
-      </Title>
-      <Text type="secondary">{data.description}</Text>
-      <Title level={5}>Lista de postulantes:</Title>
-      <ListPostulante />
+    <>
       <Title level={5}>Integrantes:</Title>
       <Card bordered={true}>
         <List
@@ -83,7 +54,7 @@ const ListUsers = () => {
           )}
         />
       </Card>
-    </div>
+    </>
   );
 };
 

@@ -6,3 +6,9 @@ Content-Type: application/json
     "nameFront":"Algun frente",
     "description": "lorem ipsum" 
 }
+
+### saber si el postulante es candidato
+GET http://localhost:4000/api/postulants/iscandidate/4/4 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzMjE1NDI5LCJleHAiOjE2NTMzMDE4Mjl9.PLegKUn5ocp4B0D93ZxyEljuJa_4uyb3lyD_j4_AKTE
+
+

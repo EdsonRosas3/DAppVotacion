@@ -5,10 +5,11 @@ import { Row, Col,message } from 'antd';
 import { electionService } from '../../services';
 import { useParams } from "react-router-dom";
 
-const Choice = () => {
+const Choice = ({electionInfo}) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {idOrganization} = useParams();
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -84,9 +85,10 @@ const Choice = () => {
   
   };
 
+  
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" disabled={electionInfo.election||electionInfo.postulation} onClick={showModal}>
         Iniciar eleccion
       </Button>
       <Modal title="Inicia una eleccion" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>

@@ -26,7 +26,7 @@ const existElections = async (req, res) => {
        let yearNow = nowDate.getFullYear();
 
        const lastElection = await getLastElection(req.params.idOrganization);
-       if(lastElection == null ) return res.status(401).json({message: "No existe elecciones"})
+       if(lastElection == null || lastElection == undefined) return res.status(200).json ({message: "No hay elecciones pendientes", election:false, postulation:false,data:null});
       
        let dateElection = lastElection.date;
        let dayElection = dateElection.getUTCDate();
@@ -46,15 +46,15 @@ const existElections = async (req, res) => {
      if( dayNow >= dayStartP && dayNow <= dayEndP 
           && monthNow >= monthStartP && monthNow <= monthEndP 
           && yearNow >= yearStartP && yearNow <= yearEndP){
-            return res.status(200).json({message: "Es fase de postulacion de candidatos", election:false, postulation:true});
+            return res.status(200).json({message: "Es fase de postulacion de candidatos", election:false, postulation:true,data:lastElection});
       }
       else{
         console.log(dayNow, dayElection, monthNow, monthElection, yearNow, yearElection);
         if(dayNow == dayElection && monthNow == monthElection && yearNow == yearElection){
-            return res.status(200).json ({message: "Hoy es la eleccion", election:true, postulation:false});
+            return res.status(200).json ({message: "Hoy es la eleccion", election:true, postulation:false,data:lastElection});
           }
           else{
-            return res.status(200).json ({message: "No es dia de eleccion y no es fase de postulacion", election:false, postulation:false});
+            return res.status(200).json ({message: "No es dia de eleccion y no es fase de postulacion", election:false, postulation:false,data:lastElection});
           }
       }
   
