@@ -16,4 +16,10 @@ router.get(
   electionCtrl.existElections
 );
 
+router.get(
+  "/:idElection/postulants",
+  [authJwt.verifyToken],
+  electionCtrl.getCandidatesByElection
+);
+
 module.exports = router;

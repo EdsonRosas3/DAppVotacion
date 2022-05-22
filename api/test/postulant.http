@@ -1,0 +1,8 @@
+POST http://localhost:4000/api/postulants/1/1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzMjAwMTU0LCJleHAiOjE2NTMyODY1NTR9.4BVW1ClKOZIPGLQmMiC9ZPFPU2M_EU5dqjsfzUqyR_A
+Content-Type: application/json
+
+{
+    "nameFront":"Algun frente",
+    "description": "lorem ipsum" 
+}
