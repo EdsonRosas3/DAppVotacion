@@ -1,4 +1,5 @@
 const Election= require("../models/Election");
+const User = require("../models/User");
 
 const createElection = async (req, res) => {
   try {
@@ -78,9 +79,20 @@ const existElections = async (req, res) => {
     catch (error) {
       return;
     }
+  };
+  
+const getCandidatesByElection = async (req, res) => {
+  try {
+    const users = await Election.findByPk(req.params.idElection,{include:User});
+    return res.status(200).json(users);
+
+  } catch (error) {
+    return res.status(500).json(error);
   }
+};
 
 module.exports = {
     createElection,
     existElections,
+    getCandidatesByElection,
 }
