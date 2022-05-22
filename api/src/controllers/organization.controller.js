@@ -1,5 +1,6 @@
 const Organization = require("../models/Organization");
 const User = require("../models/User");
+const Election= require("../models/Election");
 
 const createOrganization = async (req, res) => {
   try {
