@@ -10,6 +10,9 @@ import Profile from "./pages/profile";
 import Logout from "./pages/logout";
 import Organizations from "./pages/organization/Organizations";
 import OrganizationOne from "./pages/organization/Organization";
+import OrganizationsDash from "./pages/dashboard/Organizations";
+import OrganizationDashOne from "./pages/dashboard/Organization";
+
 
 function App() {
   return (
@@ -23,7 +26,10 @@ function App() {
               <Route index element={<Organizations/>}/>
               <Route path=":idOrganization" element={<OrganizationOne/>}/>
             </Route>
-            <Route path="dashboard" element={<Dashboard/>}/>
+            <Route path="dashboard" element={<Dashboard/>}>
+              <Route index element={<OrganizationsDash/>}/>
+              <Route path=":idOrganization" element={<OrganizationDashOne/>}/>
+            </Route>
             <Route path="profile" element={<Profile/>}/>
             <Route path="logout" element={<Logout/>}/>
         </Route>
