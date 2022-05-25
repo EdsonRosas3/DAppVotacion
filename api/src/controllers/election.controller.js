@@ -9,6 +9,8 @@ const createElection = async (req, res) => {
       postulation_StartDate,
       postulation_EndDate,
       date,
+      votesCast:0,
+      absentVotes:0,
       organization_id,
     });
     return res.status(201).json(election);
@@ -91,8 +93,28 @@ const getCandidatesByElection = async (req, res) => {
   }
 };
 
+const updateVotesElection = async (req, res) => {
+  try {
+    const {idElection} = req.params;
+    const {votesCast, absentVotes} = req.body;
+
+      const election = await Election.update({
+        votesCast,
+        absentVotes,
+      },
+      { where: {
+            id: idElection,
+      }});
+
+    return res.status(201).json({message: "Se actualizo los votos realizados y los votos ausentes"});
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
     createElection,
     existElections,
     getCandidatesByElection,
+    updateVotesElection,
 }

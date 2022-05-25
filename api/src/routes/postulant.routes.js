@@ -11,7 +11,7 @@ router.post(
 );
 
 router.put(
-  "/:idElection",
+  "/votes/:idElection",
   [authJwt.verifyToken],
   postulantCtrl.updateVotes
 );

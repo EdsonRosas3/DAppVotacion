@@ -12,6 +12,7 @@ const addCandidateToElection = async (req, res) => {
       userId:idUser,
       nameFront,
       description,
+      votesReceived:0,
     });
 
     return res.status(201).json({message: "Se agrego correctamente al candidato"});
@@ -39,32 +40,24 @@ const userIsCandidate = async (req, res) => {
 
 const updateVotes = async (req, res) => {
   try {
-    const{ idElection} = req.params;
-    const users = req.body;
-
-    const postulant = await Postulant.create({
-      electionId:idElection,
-      userId:idUser,
-    
-    });
+    const {idElection} = req.params;
+    const {users} = req.body;
 
     let i = 0;
     while (i < users.length) {
-      const user = await User.findByPk(users[i]);
-      let votes = users[i].body
+      let idu = users[i].idUser;
+      let votes = users[i].votes;
       const postulante = await Postulant.update({
-        votesReceived: 5,
-      }, {
-        where: {
-            idUser: 5,
-            idElection: 4,
-        }
-      });
-    i++;
+        votesReceived: votes,
+      },
+      { where: {
+            userId: idu,
+            electionId:idElection,
+      }});
+      i++;
     }
 
-
-    return res.status(201).json({message: "Se agrego correctamente al candidato"});
+    return res.status(201).json({message: "Se actualizo los votos"});
 
   } catch (error) {
     return res.status(500).json(error);
