@@ -9,6 +9,9 @@ Postulant.init({
     description: {
         type: DataTypes.STRING
     },
+    votesReceived: {
+        type: DataTypes.INTEGER
+    },
 },
 {
     sequelize,

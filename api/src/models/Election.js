@@ -18,6 +18,12 @@ Election.init({
   date: {
     type: DataTypes.DATE
   },
+  votesCast: {
+    type: DataTypes.INTEGER
+  },
+  absentVotes: {
+    type: DataTypes.INTEGER
+  },
   organization_id: {
     type: DataTypes.INTEGER,
     references: {

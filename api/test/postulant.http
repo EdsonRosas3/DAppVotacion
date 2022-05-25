@@ -11,4 +11,10 @@ Content-Type: application/json
 GET http://localhost:4000/api/postulants/iscandidate/4/4 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzMjE1NDI5LCJleHAiOjE2NTMzMDE4Mjl9.PLegKUn5ocp4B0D93ZxyEljuJa_4uyb3lyD_j4_AKTE
 
+PUT http://localhost:4000/api/postulants/1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzMjAwMTU0LCJleHAiOjE2NTMyODY1NTR9.4BVW1ClKOZIPGLQmMiC9ZPFPU2M_EU5dqjsfzUqyR_A
+Content-Type: application/json
 
+{
+    "users": [{"idUser": 2, "votes": 12},{"idUser":3, "votes": 10},{"idUser":4, "votes": 17}]
+}

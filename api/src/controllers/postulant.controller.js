@@ -35,8 +35,44 @@ const userIsCandidate = async (req, res) => {
   } catch (error) {
     return res.status(500).json(error);
   }
-}
+};
+
+const updateVotes = async (req, res) => {
+  try {
+    const{ idElection} = req.params;
+    const users = req.body;
+
+    const postulant = await Postulant.create({
+      electionId:idElection,
+      userId:idUser,
+    
+    });
+
+    let i = 0;
+    while (i < users.length) {
+      const user = await User.findByPk(users[i]);
+      let votes = users[i].body
+      const postulante = await Postulant.update({
+        votesReceived: 5,
+      }, {
+        where: {
+            idUser: 5,
+            idElection: 4,
+        }
+      });
+    i++;
+    }
+
+
+    return res.status(201).json({message: "Se agrego correctamente al candidato"});
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
     addCandidateToElection,
-    userIsCandidate
+    userIsCandidate,
+    updateVotes
 }
