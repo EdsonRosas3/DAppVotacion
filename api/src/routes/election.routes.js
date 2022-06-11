@@ -22,4 +22,7 @@ router.get(
   electionCtrl.getCandidatesByElection
 );
 
+
+// router.get()
+
 module.exports = router;

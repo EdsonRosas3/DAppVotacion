@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Checkbox, Typography } from "antd";
 import { electionService } from "../../services";
+import Candidate from "../../components/Candidate";
 const { Title } = Typography;
 const ListPostulante = ({ electionInfo, updateListCandidates }) => {
-  const { Meta } = Card;
   const [candidates, setCandidates] = useState([]);
 
   const toggleDisable = (e, item) => {
@@ -36,36 +36,7 @@ const ListPostulante = ({ electionInfo, updateListCandidates }) => {
             lg={8}
             xl={4}
           >
-            <Card
-              style={{ width: "100%", height: "100%" }}
-              cover={
-                <img
-                  alt="example"
-                  src={
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGWm7kgMH1PEsycRwkyqPcPB1b2NITpD8j2g&usqp=CAU"
-                  }
-                />
-              }
-            >
-              <Meta
-                //avatar={<Avatar icon={<UserOutlined />} />}
-                title={item.postulant.nameFront}
-                description={item.postulant.description}
-              />
-              {electionInfo.election ? (
-                <div style={{ textAlign: "center" }}>
-                  <Checkbox
-                    onChange={(e) => {
-                      toggleDisable(e, item);
-                    }}
-                  ></Checkbox>
-                </div>
-              ) : (
-                <div style={{ textAlign: "center" }}>
-                  <Checkbox disabled={true} />
-                </div>
-              )}
-            </Card>
+            <Candidate candidate={item} electionInfo={electionInfo} />
           </Col>
         ))}
       </Row>

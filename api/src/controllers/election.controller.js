@@ -21,6 +21,7 @@ const createElection = async (req, res) => {
 };
 
 const existElections = async (req, res) => {
+
     try {
        let nowDate = new Date();
        let dayNow = nowDate.getUTCDate();
@@ -64,6 +65,7 @@ const existElections = async (req, res) => {
       return res.status(500).json(error);
     }
   };
+
 
   const getLastElection = async (idOrganization) => {
     try {

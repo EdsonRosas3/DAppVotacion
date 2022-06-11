@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import UserState from "./context/user/UserState";
 import "@ant-design/flowchart/dist/index.css";
+import ContractState from "./context/contract/ContractState";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserState>
-        <App />
+        <ContractState>
+          <App />
+        </ContractState>
       </UserState>
     </BrowserRouter>
   </React.StrictMode>

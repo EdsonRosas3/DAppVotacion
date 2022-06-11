@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListUsers from "./ListUsers";
-import AddUser from "./AddUser";
-import Choice from "./Choice";
-import Postulate from "./Postulate";
-import { Row, Col, message,Typography } from "antd";
+import AddUser from "./Actions/AddUser";
+import InitialChoice from "./Actions/InitialChoice";
+import Postulate from "./Actions/Postulate";
+import { Row, Col, message, Typography } from "antd";
 import ListCandidate from "./ListCandidate";
 import { useParams } from "react-router-dom";
 import { organizationService, electionService } from "../../services";
@@ -20,14 +20,14 @@ const OrganizationOne = () => {
     postulation: false,
   });
   const [updateListUser, setUpdateListUser] = useState(false);
-  const [updateListCandidates, setUpdateListCandidates] = useState(false);
-  
+  const [updateOrganization, setUpdateOrganization] = useState(false);
   const updateListUsers = () => {
     setUpdateListUser(!updateListUser);
   };
-  const updateListCandidatesFn = () => {
-    setUpdateListCandidates(!updateListCandidates);
-  }
+
+  const updateOrganizationEvent = () => {
+    setUpdateOrganization(!updateOrganization);
+  };
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -36,14 +36,14 @@ const OrganizationOne = () => {
         const informationElection = await electionService.infoElection(
           idOrganization
         );
-        
+
         setElectionInfo(informationElection.data);
       } catch (error) {
         message.error("Ocurrio un error");
       }
     };
     fetch();
-  }, []);
+  }, [updateOrganization, idOrganization]);
   return (
     <div>
       <Link to="/auth/organizations">Volver a organizaciones</Link>
@@ -57,13 +57,20 @@ const OrganizationOne = () => {
             <AddUser
               electionInfo={electionInfo}
               updateListUsers={updateListUsers}
+              updateOrganizationEvent={updateOrganizationEvent}
             />
           </Col>
           <Col className="gutter-row" span={4}>
-            <Choice electionInfo={electionInfo} />
+            <InitialChoice
+              electionInfo={electionInfo}
+              updateOrganizationEvent={updateOrganizationEvent}
+            />
           </Col>
           <Col className="gutter-row" span={4}>
-            <Postulate electionInfo={electionInfo} updateListCandidatesFn={updateListCandidatesFn} />
+            <Postulate
+              electionInfo={electionInfo}
+              updateOrganizationEvent={updateOrganizationEvent}
+            />
           </Col>
         </Row>
       </Title>
@@ -74,8 +81,15 @@ const OrganizationOne = () => {
       <Text type="secondary">{data.description}</Text>
       <br />
       <Text type="secondary">{electionInfo.message}</Text>
-      
-      {!(electionInfo.data ===null) || !(!electionInfo.election&&!electionInfo.postulation)? <ListCandidate  electionInfo={electionInfo} updateListCandidates={updateListCandidates}/>:""}
+
+      {!(electionInfo.data === null) ||
+      !(!electionInfo.election && !electionInfo.postulation) ? (
+        <ListCandidate
+          electionInfo={electionInfo}
+        />
+      ) : (
+        ""
+      )}
 
       <ListUsers updateListUser={updateListUser} />
     </div>
