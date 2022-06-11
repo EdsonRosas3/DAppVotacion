@@ -12,3 +12,6 @@ User.belongsToMany(Organization,{through: "user_organization"});
 
 Election.belongsToMany(User,{through: Postulant});
 User.belongsToMany(Election,{through: Postulant});
+
+Election.belongsToMany(User,{through: "member_accept"});
+User.belongsToMany(Election,{through: "member_accept"});

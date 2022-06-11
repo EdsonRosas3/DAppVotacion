@@ -24,6 +24,9 @@ Election.init({
   absentVotes: {
     type: DataTypes.INTEGER
   },
+  statusAccept:{
+    type: DataTypes.BOOLEAN
+  },
   organization_id: {
     type: DataTypes.INTEGER,
     references: {
