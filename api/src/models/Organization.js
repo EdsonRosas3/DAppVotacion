@@ -21,6 +21,10 @@ Organization.init({
   type:{
     type: DataTypes.ENUM,
     values: ['Centralizada','Descentralizada']
+  },
+  creatorUserId:{
+    type: DataTypes.INTEGER,
+    defaultValue: null
   }
 }, {
     sequelize,

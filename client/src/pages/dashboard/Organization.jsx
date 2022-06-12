@@ -72,6 +72,7 @@ const OrganizationOne = () => {
       <br />
       <Text type="secondary">{electionInfo.message}</Text>
       <ListUsers updateListUser={updateListUser} />
+      
     </div>
   );
 };

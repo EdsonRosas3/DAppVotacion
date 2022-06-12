@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import { Modal, Button } from 'antd';
 import { Form, DatePicker } from 'antd';
 import { Row, Col,message } from 'antd';
-import { electionService } from '../../services';
+import { electionService } from '../../../services';
 import { useParams } from "react-router-dom";
 
-const Choice = ({electionInfo}) => {
+const Choice = ({electionInfo,updateOrganizationEvent}) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {idOrganization} = useParams();
-
+ 
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -77,6 +77,7 @@ const Choice = ({electionInfo}) => {
     try {
       await electionService.createElection(idOrganization,values);
       message.success("Elección creada");
+      updateOrganizationEvent();
     } catch (error) {
       message.error("Ocurrio un error");
     }

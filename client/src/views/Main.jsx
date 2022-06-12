@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect,useContext} from "react";
 import { Layout, Menu } from 'antd';
 import {NavLink, Outlet} from 'react-router-dom';
 import {
@@ -6,15 +6,25 @@ import {
   MenuFoldOutlined
 } from '@ant-design/icons';
 import {routes} from '../_nav';
+import UserContext from "../context/user/UserContext";
+import ContractContext from "../context/contract/ContractContext";
 
 const { Header, Sider, Content } = Layout;
 
 const SiderDemo = () => {
   const [collapsed, setCollapsed] = useState(false);
-
+  const { updateDataAuth } = useContext(UserContext);
+  const { initialContract } = useContext(ContractContext);
   const toggle = () => {
     setCollapsed(!collapsed);
   }
+
+
+
+  useEffect(() => {
+    updateDataAuth();
+    initialContract();
+  }, []);
   return (
     <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>

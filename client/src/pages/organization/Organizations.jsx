@@ -23,15 +23,19 @@ const Organizations = () => {
     const fetch = async () => {
       try {
         setLoading(true)
-        const res = await userService.getOrganizations(user.id);
-        setList(res.data.organizations);
+        if(user !== undefined){
+          const res = await userService.getOrganizations(user.id);
+          setList(res.data.organizations);
+          //message.success(" Bienvenido " + user.name+"😀! Tus organizaciones fueron cargadas correctamente.",8);
+        }
+       
       } catch (error) {
-        message.error("Ocurrio un error")
+        message.error("Ocurrio un error 🤦‍♀️😢",4)
       }
       setLoading(false)
     };
     fetch()
-  }, [statusCreated]);
+  }, [statusCreated,user]);
   return (
     <div>
       <Title level={3}>Mis organizaciones</Title>

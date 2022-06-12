@@ -20,5 +20,10 @@ export const electionService = {
   allCandidates: (idElection) => {
     const api = AxiosFactory("elections");
     return api.get("/"+idElection+"/postulants");
+  },
+  
+  voteNow: (idElection,idCandidate) => {
+    const api = AxiosFactory("elections");
+    return api.post("/"+idElection+"/vote",{idCandidate});
   }
 };

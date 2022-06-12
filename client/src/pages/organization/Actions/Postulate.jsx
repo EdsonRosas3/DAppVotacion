@@ -1,8 +1,8 @@
 import React, { useState,useContext,useEffect } from "react";
 import { Modal, Button, message } from "antd";
 import { Form, Input } from "antd";
-import {postulantService} from "../../services"
-import UserContext from "../../context/user/UserContext";
+import {postulantService} from "../../../services"
+import UserContext from "../../../context/user/UserContext";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -22,7 +22,7 @@ const formItemLayout = {
   },
 };
 
-const Postulate = ({ electionInfo,updateListCandidatesFn }) => {
+const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { user } = useContext(UserContext);
   const [candidate, setCandidate] = useState(false)
@@ -44,10 +44,10 @@ const Postulate = ({ electionInfo,updateListCandidatesFn }) => {
       const res = await postulantService.addPostulation(electionInfo.data.id,user.id,values)
       message.success(res.data.message)
       handleOk();
-      updateListCandidatesFn()
+      updateOrganizationEvent();
       form.resetFields();
     } catch (error) {
-      
+      message.error("Error al postularse")
     }
   };
 
@@ -68,13 +68,14 @@ const Postulate = ({ electionInfo,updateListCandidatesFn }) => {
     const fetchData = async () => {
       if(electionInfo.data){
         const res  = await postulantService.isCandidate(electionInfo.data.id,user.id)
+        console.log(res)
         if(res.data.candidate){
           setCandidate(true)
         }
       }
     };
     fetchData();
-  }, [electionInfo,isModalVisible]);
+  }, [electionInfo, isModalVisible, user.id]);
   return (
     <>
       <Button

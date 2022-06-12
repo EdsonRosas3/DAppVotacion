@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Select, Form } from "antd";
 import { Row, Col, message } from "antd";
-import { userService, organizationService } from "../../services";
+import { userService, organizationService } from "../../../services";
 import { useParams } from "react-router-dom";
 
 const AddUser = ({updateListUsers,electionInfo}) => {

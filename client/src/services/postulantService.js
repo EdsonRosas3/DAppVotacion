@@ -10,6 +10,11 @@ export const postulantService = {
   isCandidate: (idElection,idUser) => {
     const api = AxiosFactory("postulants");
     return api.get("/iscandidate/"+idElection+"/"+idUser);
+  },
+
+  allPostulantsResult: (idElection) => {
+    const api = AxiosFactory("elections");
+    return api.get("/"+idElection+"/postulants");
   }
 
 };
