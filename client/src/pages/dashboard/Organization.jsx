@@ -4,6 +4,7 @@ import ListUsers from "./ListUsers";
 import ShowTable from "./ShowTable";
 import ShowGraph from "./ShowGraph";
 import ShowPie from "./ShowPie";
+import GeneratePDF from "./GeneratePDF";
 import { Row, Col, message,Typography } from "antd";
 import { useParams } from "react-router-dom";
 import { organizationService, electionService } from "../../services";
@@ -57,6 +58,9 @@ const OrganizationOne = () => {
           </Col>
           <Col className="gutter-row" span={4}>
             <ShowPie />
+          </Col>
+          <Col className="gutter-row" span={4}>
+            <GeneratePDF />
           </Col>
         </Row>
       </Title>
