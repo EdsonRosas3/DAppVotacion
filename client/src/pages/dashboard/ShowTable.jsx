@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Select, Form } from "antd";
-import ReactDOM from 'react-dom';
+import React from "react";
 import { Bar } from '@ant-design/plots';
 
 const ShowTable = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const data = [
     {
       name: 'Epson Printe 3D',
@@ -43,34 +39,10 @@ const ShowTable = () => {
       },
     },
   };
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Mostrar tabla
-      </Button>
-      <Modal
-        title="Tabulado"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        width={1100}
-      >
-        <Bar {...config} />
-      </Modal>
-
+      <Bar {...config} />
     </>
   );
 };
