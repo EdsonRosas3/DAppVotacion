@@ -132,7 +132,6 @@ const existElectionsV2 = async (req, res) => {
     )
     let message = getMessageByStatus(currentStatus);
     if (lastElection.status === currentStatus) {
-      console.log("status: ", currentStatus);
       return res.status(200).json({
         type: lastElection.status,
         message,
@@ -141,7 +140,7 @@ const existElectionsV2 = async (req, res) => {
     }else{
       const newElection = await lastElection.update({status: currentStatus})
       message = getMessageByStatus(currentStatus);
-      return res.status(200).json({type:newElection,message,election:newElection})
+      return res.status(200).json({type:newElection.status,message,election:newElection})
     }
   } catch (error) {
     console.log(error);
@@ -157,7 +156,7 @@ const getMessageByStatus = (status) => {
     return "Hoy es la eleccion";
   }
   if (status === "ESPERA") {
-    return "No es dia de eleccion y no es fase de postulacion";
+    return "Estamos en etapa de eleccion, pero no es dia de eleccion, ni etapa de postulacion";
   }
   return "";
 }
