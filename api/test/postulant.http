@@ -1,5 +1,5 @@
-POST http://localhost:4000/api/postulants/2/5 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzNDQxNDYxLCJleHAiOjE2NTM1Mjc4NjF9.tPOl4Zo-_aSosQ6PxUQyeyD6nNBfUgQMd7E7Rz5g2Ko
+POST http://localhost:4000/api/postulants/1/5 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MDc2MTgzLCJleHAiOjE2NTUxNjI1ODN9.aQU4E3MZ-KJyj8IkkfVQmus77Zr8uGce71JtPKu4YRs
 Content-Type: application/json
 
 {
@@ -8,14 +8,14 @@ Content-Type: application/json
 }
 
 ### saber si el postulante es candidato
-GET http://localhost:4000/api/postulants/iscandidate/2/1 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzNDQxNDYxLCJleHAiOjE2NTM1Mjc4NjF9.tPOl4Zo-_aSosQ6PxUQyeyD6nNBfUgQMd7E7Rz5g2Ko
+GET http://localhost:4000/api/postulants/iscandidate/1/5 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MDc2MTgzLCJleHAiOjE2NTUxNjI1ODN9.aQU4E3MZ-KJyj8IkkfVQmus77Zr8uGce71JtPKu4YRs
 
 ###
-PUT http://localhost:4000/api/postulants/votes/2 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzNDQxNDYxLCJleHAiOjE2NTM1Mjc4NjF9.tPOl4Zo-_aSosQ6PxUQyeyD6nNBfUgQMd7E7Rz5g2Ko
+PUT http://localhost:4000/api/postulants/votes/1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MDc2MTgzLCJleHAiOjE2NTUxNjI1ODN9.aQU4E3MZ-KJyj8IkkfVQmus77Zr8uGce71JtPKu4YRs
 Content-Type: application/json
 
 {
-    "users": [{"idUser": 5, "votes": 12},{"idUser":3, "votes": 10},{"idUser":4, "votes": 17}]
+    "users": [{"idUser": 3, "votes": 12},{"idUser":4, "votes": 10},{"idUser":5, "votes": 17}]
 }

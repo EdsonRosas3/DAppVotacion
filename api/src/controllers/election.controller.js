@@ -1,4 +1,5 @@
 const Election= require("../models/Election");
+const Organization = require("../models/Organization");
 const User = require("../models/User");
 
 const createElection = async (req, res) => {
@@ -85,7 +86,7 @@ const existElections = async (req, res) => {
   
 const getCandidatesByElection = async (req, res) => {
   try {
-    const users = await Election.findByPk(req.params.idElection,{include:User});
+    let users = await Election.findByPk(req.params.idElection,{include:User});
     return res.status(200).json(users);
 
   } catch (error) {

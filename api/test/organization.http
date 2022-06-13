@@ -1,31 +1,33 @@
 POST http://localhost:4000/api/organizations/1 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
+authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU1MDgzOTE1LCJleHAiOjE2NTUxNzAzMTV9.sniqxH3n1nztcjPxYVLeRgiH_VWkjn0hOK4pQTRAFLU
 Content-Type: application/json
 
 {
     "name":"Estado plurinacional de Bolivia",
     "description": "lorem ipsum",
-    "reach": "Nacional" 
+    "reach": "Nacional",
+    "type": "Centralizada"
 }
 ###
 POST http://localhost:4000/api/organizations/2 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU1MDgzOTE1LCJleHAiOjE2NTUxNzAzMTV9.sniqxH3n1nztcjPxYVLeRgiH_VWkjn0hOK4pQTRAFLU
 Content-Type: application/json
 
 {
     "name":"OTB Villa Moderna",
     "description": "lorem ipsum",
-    "reach": "Vecinal"
+    "reach": "Vecinal",
+    "type": "Descentralizada"
 }
 
 
 ###
 POST  http://localhost:4000/api/organizations/2/users HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU1MDgzOTE1LCJleHAiOjE2NTUxNzAzMTV9.sniqxH3n1nztcjPxYVLeRgiH_VWkjn0hOK4pQTRAFLU
 Content-Type: application/json
 
 {
-    "users": [1,3]
+    "users": [5,6]
 }
 
 ###
