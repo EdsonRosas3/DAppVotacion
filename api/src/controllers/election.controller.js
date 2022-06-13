@@ -1,5 +1,6 @@
 const Election= require("../models/Election");
 const Organization = require("../models/Organization");
+const Postulant = require("../models/Postulant");
 const User = require("../models/User");
 
 const createElection = async (req, res) => {
@@ -12,6 +13,7 @@ const createElection = async (req, res) => {
       date,
       votesCast:0,
       absentVotes:0,
+      status: null,
       organization_id,
     });
     return res.status(201).json(election);
@@ -88,8 +90,17 @@ const existElections = async (req, res) => {
   
 const getCandidatesByElection = async (req, res) => {
   try {
-    let users = await Election.findByPk(req.params.idElection,{include:User});
-    return res.status(200).json(users);
+    
+    const lastElection = await getLastElection(req.params.idOrganization);
+    if (lastElection ) {
+      let idElection = lastElection.id;
+      const candidates = await Postulant.findAll({where: {electionId: idElection}});
+
+      return res.status(200).json({exit: true, election: lastElection, candidates});
+    }
+    else{
+    }
+    
 
   } catch (error) {
     return res.status(500).json(error);

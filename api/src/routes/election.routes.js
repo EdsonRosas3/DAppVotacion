@@ -17,7 +17,7 @@ router.get(
 );
 
 router.get(
-  "/:idElection/postulants",
+  "/:idOrganization/postulants",
   [authJwt.verifyToken],
   electionCtrl.getCandidatesByElection
 );

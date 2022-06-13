@@ -46,14 +46,6 @@ const createPostulations = async () => {
       electionId: 3,
       userId: 10,
     },
-  ];
-  Postulant.bulkCreate(postulants).then(() => {
-    console.log("Postulants created");
-  }).catch((err) => {
-    console.log(err.message);
-  })
-
-  let postulantsDayElection = [
     {
       nameFront: "MCD Cochabamaba",
       description: "Montevideo Capital de Desarrollo",
@@ -83,7 +75,7 @@ const createPostulations = async () => {
       userId: 10,
     },
   ];
-  Postulant.bulkCreate(postulantsDayElection).then(() => {
+  Postulant.bulkCreate(postulants).then(() => {
     console.log("Postulants created");
   }).catch((err) => {
     console.log(err.message);
@@ -117,6 +109,7 @@ const createElections = async () => {
       date: "2021-11-01",
       votesCast: 300,
       absentVotes: 6,
+      statusAccept: true,
       organization_id: 4,
     },
   ];
