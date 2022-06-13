@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### saber si el postulante es candidato
-GET http://localhost:4000/api/postulants/iscandidate/2/1 HTTP/1.1
+GET http://localhost:4000/api/postulants/iscandidate/3/3 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjUzNDQxNDYxLCJleHAiOjE2NTM1Mjc4NjF9.tPOl4Zo-_aSosQ6PxUQyeyD6nNBfUgQMd7E7Rz5g2Ko
 
 ###

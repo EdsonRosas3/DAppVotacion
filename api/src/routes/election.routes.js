@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-const {electionCtrl} = require("../controllers");
+const { electionCtrl } = require("../controllers");
 const { authJwt, verifySignup } = require("../middlewares");
 
 router.post(
@@ -22,7 +22,11 @@ router.get(
   electionCtrl.getCandidatesByElection
 );
 
-
+router.get(
+  "/:idElection/users/:idUser/iscandidate",
+  [authJwt.verifyToken],
+  electionCtrl.isCadidateOfElection
+);
 // router.get()
 
 module.exports = router;

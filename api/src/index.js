@@ -5,7 +5,7 @@ const {config} = require("dotenv");
 config();
 
 db.sequelizeConected
-  .sync({ force: true })
+  .sync({ force: false })
   .then(async () => {
     console.log("Base de datos sincronizado");
     await initialSetup.main();

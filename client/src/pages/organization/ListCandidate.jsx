@@ -15,7 +15,8 @@ const ListPostulante = ({ electionInfo, updateListCandidates }) => {
       if (electionInfo.data !== null) {
         console.log(electionInfo);
         const res = await electionService.allCandidates(electionInfo.data.id);
-        setCandidates(res.data.users);
+        console.log(res)
+        //setCandidates(res.data.users);
       }
     };
     fetchData();

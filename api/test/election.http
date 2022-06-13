@@ -1,3 +1,13 @@
+
+POST http://localhost:4000/api/auth/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "edsonrosas",
+    "password": "edsonrosas"
+}
+
+###
 POST http://localhost:4000/api/elections/1 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
 Content-Type: application/json
@@ -12,5 +22,9 @@ Content-Type: application/json
 GET http://localhost:4000/api/elections/exist/1 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
 ###
-GET http://localhost:4000/api/elections/1/postulants HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU0NDY1NTQyLCJleHAiOjE2NTQ1NTE5NDJ9.TFGes5gp-c6RQ58pM2wvzwZ5Mwd4TmvAET0O4Ag99sQ
+GET http://localhost:4000/api/elections/3/postulants HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDc4MTAyLCJleHAiOjE2NTUxNjQ1MDJ9.Yxe5Y1KEVRahrfNYWbkotVBQgeK-hf02q9R5CTiNYJk
+
+###
+GET http://localhost:4000/api/elections/3/users/2/iscandidate HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDg1ODU0LCJleHAiOjE2NTUxNzIyNTR9.hXcoheTtZew3XhvEFNrkSL317OrOYy-k0g9AAhgqgJ4

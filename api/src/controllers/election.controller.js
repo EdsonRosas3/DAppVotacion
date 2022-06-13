@@ -1,4 +1,5 @@
 const Election= require("../models/Election");
+const Postulant = require("../models/Postulant");
 const User = require("../models/User");
 
 const createElection = async (req, res) => {
@@ -114,9 +115,25 @@ const updateVotesElection = async (req, res) => {
   }
 };
 
+const isCadidateOfElection = async (req, res) => {
+  try {
+    const {idElection, idUser} = req.params;
+    const isCadidate =  await Postulant.findOne({where:{userId:idUser, electionId:idElection}});
+    if(isCadidate){
+      return res.status(200).json({isCandidate:true,message: "Es candidato de la eleccion"});
+    }
+    else{
+      return res.status(200).json({isCandidate:false,message: "No es candidato de la eleccion"});
+    }
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+
 module.exports = {
     createElection,
     existElections,
     getCandidatesByElection,
     updateVotesElection,
+    isCadidateOfElection,
 }

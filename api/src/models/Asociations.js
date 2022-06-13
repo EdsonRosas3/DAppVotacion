@@ -4,11 +4,11 @@ const Organization = require('./Organization');
 const Election = require('./Election');
 const Postulant = require('./Postulant');
 
-Role.belongsToMany(User,{through: "user_role"});
-User.belongsToMany(Role,{through: "user_role"});
+Role.belongsToMany(User,{through: "users_roles"});
+User.belongsToMany(Role,{through: "users_roles"});
 
-Organization.belongsToMany(User,{through: "user_organization"});
-User.belongsToMany(Organization,{through: "user_organization"});
+Organization.belongsToMany(User,{through: "users_organizations"});
+User.belongsToMany(Organization,{through: "users_organizations"});
 
 Election.belongsToMany(User,{through: Postulant});
 User.belongsToMany(Election,{through: Postulant});

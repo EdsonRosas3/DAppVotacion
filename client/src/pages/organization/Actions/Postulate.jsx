@@ -68,8 +68,8 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
     const fetchData = async () => {
       if(electionInfo.data){
         const res  = await postulantService.isCandidate(electionInfo.data.id,user.id)
-        console.log(res)
-        if(res.data.candidate){
+        console.log("HOLA",res)
+        if(res.data.isCandidate){
           setCandidate(true)
         }
       }
@@ -78,13 +78,15 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   }, [electionInfo, isModalVisible, user.id]);
   return (
     <>
-      <Button
+      {!candidate && (
+        <Button
         type="primary"
         disabled={!electionInfo.postulation || candidate}
         onClick={showModal}
       >
         Postular
-      </Button>
+      </Button>)
+      }
       <Modal
         title="Postular como candidato"
         visible={isModalVisible}

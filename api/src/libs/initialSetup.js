@@ -2,6 +2,7 @@ const Role = require("../models/Role");
 const Organization = require("../models/Organization");
 const Election = require("../models/Election");
 const Postulant = require("../models/Postulant");
+const User = require("../models/User");
 const { encryptPassword } = require("../utils");
 const { faker } = require("@faker-js/faker/locale/es_MX");
 
@@ -46,14 +47,6 @@ const createPostulations = async () => {
       electionId: 3,
       userId: 10,
     },
-  ];
-  Postulant.bulkCreate(postulants).then(() => {
-    console.log("Postulants created");
-  }).catch((err) => {
-    console.log(err.message);
-  })
-
-  let postulantsDayElection = [
     {
       nameFront: "MCD Cochabamaba",
       description: "Montevideo Capital de Desarrollo",
@@ -83,7 +76,7 @@ const createPostulations = async () => {
       userId: 10,
     },
   ];
-  Postulant.bulkCreate(postulantsDayElection).then(() => {
+  Postulant.bulkCreate(postulants).then(() => {
     console.log("Postulants created");
   }).catch((err) => {
     console.log(err.message);

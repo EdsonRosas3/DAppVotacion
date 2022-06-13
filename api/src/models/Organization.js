@@ -28,7 +28,7 @@ Organization.init({
   }
 }, {
     sequelize,
-    modelName: "organization",
+    modelName: "organizations",
     timestamps: false
 });
 
