@@ -26,13 +26,13 @@ const getStatusElection = (date_startPostulation, date_endPostulation, dateElect
     let dayEndP = date_endPostulation.getUTCDate();
     let monthEndP = date_endPostulation.getMonth();
     let yearEndP = date_endPostulation.getFullYear();
-
-    /**if(yearStartP >= yearNow && yearNow <= yearEndP){
+/** saber si fech a se encuentra en intervalo de fechas */
+if(yearNow == yearElection && monthNow == monthElection && dayNow == dayElection){    
+/**if(yearStartP >= yearNow && yearNow <= yearEndP){
         if(monthStartP >= monthNow && monthNow <= monthEndP){
             if()
         }
     }*/
-    
 }
 
 module.exports = {
