@@ -52,7 +52,9 @@ const OrganizationOne = () => {
   const updateListUsers = () => {
     setUpdateListUser(!updateListUser);
   };
-  
+  const generarPdf = () => {
+   
+  }
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -100,7 +102,6 @@ const OrganizationOne = () => {
   return (
     <div>
       <Link to="/auth/dashboard">Volver a organizaciones</Link>
-
       <Title level={3}>
         <Row gutter={16}>
           <Col className="gutter-row" span={12}>

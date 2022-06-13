@@ -8,8 +8,8 @@ export const postulantService = {
   },
 
   isCandidate: (idElection,idUser) => {
-    const api = AxiosFactory("postulants");
-    return api.get("/iscandidate/"+idElection+"/"+idUser);
+    const api = AxiosFactory("elections");
+    return api.get("/"+idElection+"/users/"+idUser+"/iscandidate");
   },
 
   allPostulantsResult: (idElection) => {

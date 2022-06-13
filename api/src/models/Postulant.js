@@ -15,7 +15,7 @@ Postulant.init({
 },
 {
     sequelize,
-    modelName: "postulant",
+    modelName:"postulants",
     timestamps: false
 })
 module.exports = Postulant;

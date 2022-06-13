@@ -41,7 +41,7 @@ Election.init({
   },
 }, {
     sequelize,
-    modelName: "election",
+    modelName: "elections",
     timestamps: false
 });
 
