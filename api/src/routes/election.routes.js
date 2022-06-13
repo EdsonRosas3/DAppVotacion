@@ -13,7 +13,7 @@ router.post(
 router.get(
   "/exist/:idOrganization",
   [authJwt.verifyToken],
-  electionCtrl.existElections
+  electionCtrl.existElectionsV2
 );
 
 router.get(
