@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:4000/api/elections/exist/2 HTTP/1.1
+GET http://localhost:4000/api/elections/exist/3 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjU1MDk3NjQ1LCJleHAiOjE2NTUxODQwNDV9.BIy4bQ5GAhK_JrduwsgYjsp9BqBhA2DyDLoyULKkTHA
 ###
 GET http://localhost:4000/api/elections/4/postulants HTTP/1.1
