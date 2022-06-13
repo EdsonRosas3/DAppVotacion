@@ -25,7 +25,12 @@ Election.init({
     type: DataTypes.INTEGER
   },
   statusAccept:{
-    type: DataTypes.BOOLEAN
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+  status:{
+    type: DataTypes.ENUM,
+    values: ['POSTULACION','ESPERA','VOTACION','FINALIZADA']
   },
   organization_id: {
     type: DataTypes.INTEGER,

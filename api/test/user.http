@@ -24,5 +24,5 @@ GET http://localhost:4000/api/users HTTP/1.1
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjQwMzAxLCJleHAiOjE2NTIzMjY3MDF9.eiKWnY5DZcTj2qkWbub-AFwT7zO6zAKiMXKD0Lizlbc
 
 ###
-GET http://localhost:4000/api/users/2/organizations HTTP/1.1
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjMzODE4LCJleHAiOjE2NTIzMjAyMTh9.ETmNAF3inX181bDrRfTD7hG9HjFcE0RSXMzJqQ7F9Pw
+GET http://localhost:4000/api/users/1/organizations HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MDc2MTgzLCJleHAiOjE2NTUxNjI1ODN9.aQU4E3MZ-KJyj8IkkfVQmus77Zr8uGce71JtPKu4YRs

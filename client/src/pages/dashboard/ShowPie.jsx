@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Select, Form } from "antd";
-import ReactDOM from 'react-dom';
+import React from "react";
 import { Pie } from '@ant-design/plots';
 
 const ShowPie = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const data = [
     {
@@ -53,34 +50,10 @@ const ShowPie = () => {
       },
     ],
   };
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Mostrar Grafica torta
-      </Button>
-      <Modal
-        title="Grafica torta"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        width={1100}
-      >
-        <Pie {...config} />
-      </Modal>
-
+      <Pie {...config} />
     </>
   );
 };

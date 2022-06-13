@@ -13,18 +13,23 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDcz
 Content-Type: application/json
 
 {
-    "postulation_StartDate":"2022-06-03",
-    "postulation_EndDate": "2022-06-06",
-    "date": "2022-06-07" 
+    "postulation_StartDate":"2022-06-06",
+    "postulation_EndDate": "2022-06-12",
+    "date": "2022-06-19"
 }
 
 ###
 GET http://localhost:4000/api/elections/exist/1 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
 ###
+<<<<<<< HEAD
 GET http://localhost:4000/api/elections/3/postulants HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDc4MTAyLCJleHAiOjE2NTUxNjQ1MDJ9.Yxe5Y1KEVRahrfNYWbkotVBQgeK-hf02q9R5CTiNYJk
 
 ###
 GET http://localhost:4000/api/elections/3/users/2/iscandidate HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDg1ODU0LCJleHAiOjE2NTUxNzIyNTR9.hXcoheTtZew3XhvEFNrkSL317OrOYy-k0g9AAhgqgJ4
+=======
+GET http://localhost:4000/api/elections/4/postulants HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDg3NDI5LCJleHAiOjE2NTUxNzM4Mjl9.zFefLj6TmTOCkfGmZ9J3ikRNknDdnf0sZ_zjsBPDWts
+>>>>>>> f21ee4c4ec5aacd6ecf7784deba716e3e0308848

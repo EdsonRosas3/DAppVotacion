@@ -110,6 +110,7 @@ const createElections = async () => {
       date: "2021-11-01",
       votesCast: 300,
       absentVotes: 6,
+      statusAccept: true,
       organization_id: 4,
     },
   ];

@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Select, Form } from "antd";
-import ReactDOM from 'react-dom';
+import React from "react";
 import { Column } from '@ant-design/plots';
 
 const ShowGraph = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const data = [
     {
       name: 'Epson Printe 3D',
@@ -60,34 +56,9 @@ const ShowGraph = () => {
     },
   };
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Mostrar Grafica
-      </Button>
-      <Modal
-        title="Grafica"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-        width={1100}
-      >
-        <Column {...config} />
-      </Modal>
-
+      <Column {...config} />
     </>
   );
 };
