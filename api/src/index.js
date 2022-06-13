@@ -5,10 +5,10 @@ const {config} = require("dotenv");
 config();
 
 db.sequelizeConected
-  .sync({ force: false })
+  .sync({ force: true })
   .then(async () => {
     console.log("Base de datos sincronizado");
-    await initialSetup.createUsers();
+    await initialSetup.main();
   })
   .catch((e) => {
     console.error("Error: ",e.message);

@@ -33,7 +33,7 @@ const Organizations = () => {
   }, [statusCreated]);
   return (
     <div>
-      <Title level={3}>Mis organizaciones</Title>
+      <Title level={3}>Elecciones finalizadas</Title>
       <List
         className="demo-loadmore-list"
         loading={loading}

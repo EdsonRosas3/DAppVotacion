@@ -5,23 +5,25 @@ import UserContext from "./UserContext";
 import UserReducer from "./UserReducer";
 import Cookies from "js-cookie";
 
-import { LOGIN, LOGOUT,REGISTER } from "../types";
+import { LOGIN, LOGOUT } from "../types";
 
 const UserState = (props) => {
   const initialState = {
     token: "",
     user: {
-      nombres: "",
-      rol: "",
+      username:""
     },
   };
   const [message, setMessage] = useState("");
   const [state, dispatch] = useReducer(UserReducer, initialState);
   const [auth, setAuth] = useState(false);
 
-  const updateDataUser = (data) => {
-    console.log(data);
-    dispatch({ type: LOGIN, payload: data });
+  const updateDataAuth = () => {
+    const data= {
+      user: JSON.parse(Cookies.get("AUTH_USER")),
+      token: Cookies.get("AUTH_TOKEN"),
+    }
+    dispatch({ type: LOGIN, payload:data  });
     setAuth(true);
   };
 
@@ -48,7 +50,6 @@ const UserState = (props) => {
   const signup = async (user) => {
     const api = AxiosFactory("auth");
     try {
-      console.log(user);
       const res = await api.post("/signup",user)
       if(res.status === 201){
         setMessage("")
@@ -92,7 +93,7 @@ const UserState = (props) => {
         signin,
         signup,
         logout,
-        updateDataUser,
+        updateDataAuth,
       }}
     >
       {props.children}

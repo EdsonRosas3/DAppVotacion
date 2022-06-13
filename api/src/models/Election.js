@@ -9,7 +9,7 @@ Election.init({
     primaryKey:true,
     autoIncrement:true
   },
-   postulation_StartDate: {
+  postulation_StartDate: {
     type: DataTypes.DATE
   },
   postulation_EndDate: {
