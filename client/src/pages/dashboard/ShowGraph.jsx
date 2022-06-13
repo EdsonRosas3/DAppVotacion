@@ -1,30 +1,39 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Column } from '@ant-design/plots';
 
-const ShowGraph = () => {
-  const data = [
-    {
-      name: 'Epson Printe 3D',
-      votes: 38,
-    },
-    {
-      name: 'Franco',
-      votes: 52,
-    },
-    {
-      name: 'Agapito',
-      votes: 61,
-    },
-    {
-      name: 'Constantino',
-      votes: 145,
-    },
-    {
-      name: 'Juanito',
-      votes: 48,
-    },
-  
-  ];
+const ShowGraph = ({listCandidates}) => {
+  const [data,setData] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await convertDataUsers(listCandidates);
+        setData(res);
+      } catch (error) {   
+        console.log("Ocurrio un error");
+      }
+    }; 
+    fetch();
+    
+  }, []);
+
+
+  const convertDataUsers = (users) => {
+
+    const array = [];
+
+    for (const i in users) {
+      const _data = { name: '', votes: 0,};
+
+      _data.name  = users[i].nameFront;
+      _data.votes = users[i].votesReceived;
+
+      array.push(_data);
+    }
+    return array;
+    
+  };
+
 
   const config = {
     data,

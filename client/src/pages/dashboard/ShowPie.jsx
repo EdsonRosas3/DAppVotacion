@@ -1,34 +1,41 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Pie } from '@ant-design/plots';
 
-const ShowPie = () => {
+const ShowPie = ({listCandidates,votesCast}) => {
 
-  const data = [
-    {
-      name: 'Epson Printe 3D',
-      percentage: 27,
-    },
-    {
-      name: 'Franco',
-      percentage: 25,
-    },
-    {
-      name: 'Agapito',
-      percentage: 18,
-    },
-    {
-      name: 'Constantino',
-      percentage: 15,
-    },
-    {
-      name: 'Juanito',
-      percentage: 10,
-    },
-    {
-      name: 'Estefano',
-      percentage: 5,
-    },
-  ];
+  const [data,setData] = useState([]);
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await convertDataUsers(listCandidates,votesCast);
+        setData(res);
+      } catch (error) {   
+        console.log("Ocurrio un error");
+      }
+    }; 
+    fetch();
+    
+  }, []);
+
+
+  const convertDataUsers = (users,votesCast) => {
+
+    const array = [];
+
+    for (const i in users) {
+      const _data = { name: '', percentage: 0};
+      _data.name  = users[i].nameFront;
+      _data.percentage = Number(((users[i].votesReceived)*100)/votesCast);
+
+      array.push(_data);
+    }
+    return array;
+    
+  };
+
+
+
+
   const config = {
     appendPadding: 10,
     data,
@@ -53,6 +60,8 @@ const ShowPie = () => {
 
   return (
     <>
+      {console.log(listCandidates)}
+      {console.log(votesCast)}
       <Pie {...config} />
     </>
   );
