@@ -62,7 +62,7 @@ const OrganizationOne = () => {
   }, []);
   
   return (
-    <div>
+    <div >
       <Link to="/auth/dashboard">Volver a organizaciones</Link>
       <Title level={3}>
         <Row gutter={16}>
@@ -70,7 +70,7 @@ const OrganizationOne = () => {
             {data.name}
           </Col>
           <Col className="gutter-row" span={4}>
-            <GeneratePDF />
+            
           </Col>
         </Row>
       </Title>
@@ -83,13 +83,14 @@ const OrganizationOne = () => {
       <Text type="secondary">{electionInfo.message}</Text>
       {(listResults.exit)?
       <div>
-          <Row gutter={16}>
+          <Row gutter={16} >
             <Col className="gutter-row" span={8}>
             </Col>
             <Col className="gutter-row" span={10}>
               <Title level={2} >REPORTE ESTADISTICO</Title>
             </Col>
             <Col className="gutter-row" span={3}>
+              <GeneratePDF data={data} listResults={listResults}/>
             </Col>
         </Row>
         <Row gutter={16}>
@@ -121,37 +122,62 @@ const OrganizationOne = () => {
               {listResults.election.absentVotes}
             </Col>
         </Row>
-        
-        <Title level={3} >Grafica de barras</Title>
-        <Row gutter={16}>
-            <Col className="gutter-row" span={4}>
-            </Col>
-            <Col className="gutter-row" span={16}>
-              <ShowTable listCandidates={listResults.candidates} />
-            </Col>
-            <Col className="gutter-row" span={4}>
-            </Col>
-        </Row>
-        <Title level={3} >Grafica de columna</Title>
-        <Row gutter={16}>
-            <Col className="gutter-row" span={4}>
-            </Col>
-            <Col className="gutter-row" span={16}>
-              <ShowGraph listCandidates={listResults.candidates}/>
-            </Col>
-            <Col className="gutter-row" span={4}>
-            </Col>
-        </Row>
-        <Title level={3} >Grafica por sectores</Title>
-        <Row gutter={16}>
-            <Col className="gutter-row" span={4}>
-            </Col>
-            <Col className="gutter-row" span={16}>
-              <ShowPie listCandidates={listResults.candidates} votesCast={listResults.election.votesCast} />
-            </Col>
-            <Col className="gutter-row" span={4}>
-            </Col>
-        </Row>
+        <div id = "graph">
+          <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={2}>
+              </Col>
+              <Col className="gutter-row" span={10}>
+                <Title level={3} >Grafica de barras</Title>
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+          <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={4}>
+              </Col>
+              <Col className="gutter-row" span={16}>
+                <ShowTable listCandidates={listResults.candidates} />
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+          <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={2}>
+              </Col>
+              <Col className="gutter-row" span={10}>
+                <Title level={3} >Grafica de columna</Title>
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+          <Row gutter={16} >
+              <Col className="gutter-row" span={4}>
+              </Col>
+              <Col className="gutter-row" span={16}>
+                <ShowGraph listCandidates={listResults.candidates}/>
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+          <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={2}>
+              </Col>
+              <Col className="gutter-row" span={10}>
+                <Title level={3} >Grafica por sectores</Title>
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+          <Row gutter={16} >
+              <Col className="gutter-row" span={4}>
+              </Col>
+              <Col className="gutter-row" span={16}>
+                <ShowPie listCandidates={listResults.candidates} votesCast={listResults.election.votesCast} />
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+          </Row>
+        </div>
       </div>
       :
       <div>
