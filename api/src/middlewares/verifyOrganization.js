@@ -1,7 +1,9 @@
 const Organization = require("../models/Organization");
 const User = require("../models/User");
 // verify if a organization is central or not
-
+//descentralized -> must accept the members >=51% statusAccept = true
+                 //else statusAccept = false
+//centralized -> election -> statusAccept = true
 const checkOrganizationIsCentralizedOrDecentralized = (req, res, next) => {
     const { idOrganization, idUser } = req.params;
     const organization = Organization.findByPk(idOrganization);
@@ -20,6 +22,7 @@ const checkOrganizationIsCentralizedOrDecentralized = (req, res, next) => {
 const verifyMemberAccept = async (idUser) => {
     const user = User.findByPk(idUser);
     let el = user.getElections();
+    //
     console.log(el);
 }
 
