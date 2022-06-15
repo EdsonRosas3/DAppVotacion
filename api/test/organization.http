@@ -33,4 +33,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/api/organizations/2/users HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MzI3OTE5LCJleHAiOjE2NTU0MTQzMTl9.xo5d7TjPBsPJpsGuU9DhvQRHU2WoEO7S-YrqtfxuG18
+###
+GET http://localhost:4000/api/organizations/2/notusers HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MzMyOTg2LCJleHAiOjE2NTU0MTkzODZ9.Ey95oYkiYZUWFv1VPgUDB1G7WEi0qYSGuzSwO5f4ulI

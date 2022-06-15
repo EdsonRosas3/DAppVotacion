@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Election= require("../models/Election");
 const { getLastElection } = require("../utils");
 const Participant = require("../models/Participant");
+//const { all } = require("sequelize/types/lib/operators");
 
 const createOrganization = async (req, res) => {
   try {
@@ -66,10 +67,42 @@ const getUsersByOrganization = async (req, res) => {
   }
 };
 
+const getNotUsersByOrganization = async (req, res) => {
+  try {
+    const usersOrganization = await Organization.findByPk(req.params.idOrganization,{include:User});
+    const allUsers = await User.findAll();
+    let users = usersOrganization.users;
+ 
+    for (let i = 0; i < users.length; i++) {
+      let usern = users[i];
+      let idUser = usern.id;
+
+      let pos = 0;
+      let j = 0;
+      let ban = false;
+
+      while(ban === false) {
+        let user = allUsers[j];
+        if(user.id === idUser){
+          ban = true;
+          pos = j;
+          allUsers.splice(pos,1);
+        }
+        j++;
+      }
+    }
+    return res.status(200).json(allUsers);
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   createOrganization,
   getOrganizations,
   getUser,
   addUsersToOrganization,
-  getUsersByOrganization
-}
+  getUsersByOrganization,
+  getNotUsersByOrganization
+};

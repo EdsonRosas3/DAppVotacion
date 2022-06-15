@@ -22,4 +22,10 @@ router.get(
   organizationCtrl.getUsersByOrganization
 );
 
+router.get(
+  "/:idOrganization/notusers",
+  [authJwt.verifyToken],
+  organizationCtrl.getNotUsersByOrganization
+);
+
 module.exports = router;
