@@ -125,23 +125,48 @@ const existElectionsV2 = async (req, res) => {
         election:lastElection,
       });
     }
-    let currentStatus = getStatusElection(
-      lastElection.postulation_StartDate,
-      lastElection.postulation_EndDate,
-      lastElection.date
-    )
-    let message = getMessageByStatus(currentStatus);
-    if (lastElection.status === currentStatus) {
-      return res.status(200).json({
-        type: lastElection.status,
-        message,
-        election: lastElection
-      });
-    }else{
-      const newElection = await lastElection.update({status: currentStatus})
-      message = getMessageByStatus(currentStatus);
-      return res.status(200).json({type:newElection.status,message,election:newElection})
+    //si es centralizada -> todo sigue normal
+    //si es descentralizada -> control de la mayoria de usuarios
+    //si la mayoria no ha aceptado -> election con sus datos, status: ESPERA, La eleccion no esta habilitada
+    if(lastElection.organization.type == "CENTRALIZADA" || lastElection.statusAccept == true){
+        let currentStatus = getStatusElection(
+        lastElection.postulation_StartDate,
+        lastElection.postulation_EndDate,
+        lastElection.date
+      )
+      let message = getMessageByStatus(currentStatus);
+      if (lastElection.status === currentStatus) {
+        return res.status(200).json({
+          type: lastElection.status,
+          message,
+          election: lastElection
+        });
+      }else{
+        const newElection = await lastElection.update({status: currentStatus})
+        message = getMessageByStatus(currentStatus);
+        return res.status(200).json({type:newElection.status,message,election:newElection})
+      }
     }
+    else{
+      let currentStatus = getStatusElection(
+        lastElection.postulation_StartDate,
+        lastElection.postulation_EndDate,
+        lastElection.date
+      )
+      let message = "La eleccion no esta habilitada";
+      if (lastElection.status === currentStatus) {
+        return res.status(200).json({
+          type: lastElection.status,
+          message,
+          election: lastElection
+        });
+      }else{
+        const newElection = await lastElection.update({status: currentStatus})
+        message = "La eleccion no esta habilitada";
+        return res.status(200).json({type:newElection.status,message,election:newElection})
+      }
+    }
+
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);

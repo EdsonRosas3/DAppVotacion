@@ -21,4 +21,17 @@ router.get(
   [authJwt.verifyToken],
   userCtrl.getOrganizationsByUser
 );
+
+router.get(
+  "/:idUser/acceptElection/:idOrganization",
+  [authJwt.verifyToken],
+  userCtrl.userAcceptElection
+);
+
+router.get(
+  "/:idUser/voteElection/:idOrganization",
+  [authJwt.verifyToken],
+  userCtrl.userVoteElection
+);
+
 module.exports = router;

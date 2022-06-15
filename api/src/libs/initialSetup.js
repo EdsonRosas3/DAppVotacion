@@ -5,6 +5,7 @@ const Postulant = require("../models/Postulant");
 const User = require("../models/User");
 const { encryptPassword } = require("../utils");
 const { faker } = require("@faker-js/faker/locale/es_MX");
+const Participant = require("../models/Participant");
 
 const main = async () => {
   await createOrganizations();
@@ -12,6 +13,42 @@ const main = async () => {
   await relationUsersOrg();
   await createElections();
   await createPostulations();
+  await createParticipantes();
+};
+const createParticipantes = async () => {
+  let lenth = await Participant.count();
+  if (lenth > 0) {
+    return;
+  }
+
+  for (let index = 1; index <= 100; index++) {
+    let participant1 = await Participant.create({
+      electionId: 1,
+      userId: index,
+    });
+  }
+
+  for (let index = 80; index <= 200; index++) {
+    let participant2 = await Participant.create({
+      electionId: 2,
+      userId: index,
+    });
+  }
+
+  for (let index = 150; index <= 250; index++) {
+    let participant3 = await Participant.create({
+      electionId: 3,
+      userId: index,
+    });
+  }
+
+  for (let index = 1; index <= 307; index++) {
+    let participant4 = await Participant.create({
+      electionId: 4,
+      userId: index,
+    });
+  }
+  console.log("Participantes creados");
 };
 const createPostulations = async () => {
   let lenth = await Postulant.count();
@@ -88,6 +125,15 @@ const createElections = async () => {
     return;
   }
   let elections = [
+    {
+      postulation_StartDate: "2022-06-08",
+      postulation_EndDate: "2022-06-25",
+      date: "2022-07-11",
+      votesCast: 0,
+      absentVotes: 0,
+      status: "ESPERA",
+      organization_id: 1,
+    },
     {
       postulation_StartDate: "2022-06-01",
       postulation_EndDate: "2022-06-30",
@@ -271,7 +317,7 @@ const createUsers = async () => {
         users = [];
       })
       .catch((e) => {
-        console.log(e.message);
+        console.log("error: ",e.message);
       });
   }
 };
