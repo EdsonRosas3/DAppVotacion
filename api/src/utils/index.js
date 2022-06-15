@@ -15,6 +15,9 @@ const getStatusElection = (
   date_endPostulation,
   dateElection
 ) => {
+  date_startPostulation = new Date(date_startPostulation);
+  date_endPostulation = new Date(date_endPostulation);
+  dateElection = new Date(dateElection);
   let nowDate = new Date();
   const isPostulation = isBetween(
     nowDate,
@@ -39,7 +42,7 @@ const getStatusElection = (
   }
   date_endPostulation = new Date(date_endPostulation);
   if(nowDate.getTime() > date_endPostulation.getTime()){
-    return "DESAPROVADO";
+    return "DESAPROBADO";
   }
 };
 
