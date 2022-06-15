@@ -4,11 +4,13 @@ import { Form, DatePicker } from 'antd';
 import { Row, Col,message } from 'antd';
 import { electionService } from '../../../services';
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Choice = ({electionInfo,updateOrganizationEvent}) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {idOrganization} = useParams();
+  const [disabledStatus, setDisabledStatus] = useState(true);
  
   const showModal = () => {
     setIsModalVisible(true);
@@ -86,10 +88,38 @@ const Choice = ({electionInfo,updateOrganizationEvent}) => {
   
   };
 
+  const handlerStatusBtn = () => {
+    switch (electionInfo.status) {
+      case "NO_EXISTE":
+        setDisabledStatus(false);
+        break;
+      case "FINALIZADA":
+        setDisabledStatus(false);
+        break;
+      case "POSTULACION":
+        setDisabledStatus(true);
+        break;
+      case "ESPERA":
+        setDisabledStatus(true);
+        break;
+      case "VOTACION":
+        setDisabledStatus(true);
+        break;
+      case "DESAPROVADA":
+        setDisabledStatus(false);
+        break;
+      default:
+        setDisabledStatus(true);
+        break;
+    }
+  }
+  useEffect(()=>{
+    handlerStatusBtn();
+  },[electionInfo])
   
   return (
     <>
-      <Button type="primary" disabled={electionInfo.election||electionInfo.postulation} onClick={showModal}>
+      <Button type="primary" disabled={disabledStatus} onClick={showModal}>
         Iniciar eleccion
       </Button>
       <Modal title="Inicia una eleccion" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>

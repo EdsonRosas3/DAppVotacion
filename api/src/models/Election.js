@@ -30,7 +30,7 @@ Election.init({
   },
   status:{
     type: DataTypes.ENUM,
-    values: ['POSTULACION','ESPERA','VOTACION','FINALIZADA']
+    values: ['POSTULACION','ESPERA','VOTACION','FINALIZADA','DESAPROVADO']
   },
   organization_id: {
     type: DataTypes.INTEGER,

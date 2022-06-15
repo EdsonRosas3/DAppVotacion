@@ -36,6 +36,10 @@ const getStatusElection = (
   ) {
     return "VOTACION";
   }
+  date_endPostulation = new Date(date_endPostulation);
+  if(nowDate.getTime() > date_endPostulation.getTime()){
+    return "DESAPROVADO";
+  }
 };
 
 function isBetween(fecha, fechaInicio, fechaFin) {

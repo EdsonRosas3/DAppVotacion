@@ -35,22 +35,22 @@ const existElectionsV2 = async (req, res) => {
       return res.status(200).json({
         status: "NO_EXISTE",
         message: "No hay elecciones pendientes",
-        election: false,
-        postulation: false,
-        data: null,
+        election:lastElection
       });
     }
 
     if (lastElection.status == "FINALIZADA") {
       return res.status(200).json({
         status: "FINALIZADA",
-        message: "La eleccion ya ha finalizado",
+        message: "La elección ya ha finalizado",
         election:lastElection,
       });
     }
+
+    
     //si es centralizada -> todo sigue normal
     //si es descentralizada -> control de la mayoria de usuarios
-    //si la mayoria no ha aceptado -> election con sus datos, status: ESPERA, La eleccion no esta habilitada
+    //si la mayoria no ha aceptado -> election con sus datos, status: ESPERA, La elección no esta habilitada
     if(organization.type == "CENTRALIZADA" || lastElection.statusAccept == true){
         let currentStatus = getStatusElection(
         lastElection.postulation_StartDate,
@@ -76,7 +76,7 @@ const existElectionsV2 = async (req, res) => {
         lastElection.postulation_EndDate,
         lastElection.date
       )
-      let message = "La eleccion no esta habilitada";
+      let message = "La eleccion no esta habilitada. "+getMessageByStatus(currentStatus);
       if (lastElection.status === currentStatus) {
         return res.status(200).json({
           status: lastElection.status,
@@ -85,7 +85,6 @@ const existElectionsV2 = async (req, res) => {
         });
       }else{
         const newElection = await lastElection.update({status: currentStatus})
-        message = "La eleccion no esta habilitada";
         return res.status(200).json({status:newElection.status,message,election:newElection})
       }
     }
@@ -98,13 +97,16 @@ const existElectionsV2 = async (req, res) => {
 
 const getMessageByStatus = (status) => {
   if (status === "POSTULACION") {
-    return "Es fase de postulacion de candidatos";
+    return "Es fase de postulación de candidatos";
   }
   if (status === "VOTACION") {
-    return "Hoy es la eleccion";
+    return "Hoy es la elección";
   }
   if (status === "ESPERA") {
-    return "Estamos en etapa de eleccion, pero no es dia de eleccion, ni etapa de postulacion";
+    return "Estamos en etapa de elección, pero no es dia de elección, ni etapa de postulación";
+  }
+  if (status === "DESAPROVADA") {
+    return "La elección no fue aprobada";
   }
   return "";
 }

@@ -4,7 +4,7 @@ import ListUsers from "./ListUsers";
 import AddUser from "./Actions/AddUser";
 import InitialChoice from "./Actions/InitialChoice";
 import Postulate from "./Actions/Postulate";
-import { Row, Col, message, Typography } from "antd";
+import { Row, Col, message, Typography, Card } from "antd";
 import ListCandidate from "./ListCandidate";
 import { useParams } from "react-router-dom";
 import { organizationService, electionService } from "../../services";
@@ -14,10 +14,9 @@ const OrganizationOne = () => {
   const [data, setData] = useState({});
   const { idOrganization } = useParams();
   const [electionInfo, setElectionInfo] = useState({
-    data: null,
-    election: false,
+    election: null,
     message: "",
-    postulation: false,
+    status: "",
   });
   const [updateListUser, setUpdateListUser] = useState(false);
   const [updateOrganization, setUpdateOrganization] = useState(false);
@@ -36,7 +35,6 @@ const OrganizationOne = () => {
         const informationElection = await electionService.infoElection(
           idOrganization
         );
-        console.log("Ult election:",informationElection);
         setElectionInfo(informationElection.data);
       } catch (error) {
         message.error("Ocurrio un error");
@@ -80,13 +78,33 @@ const OrganizationOne = () => {
       </Link>
       <Text type="secondary">{data.description}</Text>
       <br />
-      <Text type="secondary">{electionInfo.message}</Text>
 
-      {!(electionInfo.data === null) ||
-      !(!electionInfo.election && !electionInfo.postulation) ? (
-        <ListCandidate
-          electionInfo={electionInfo}
-        />
+      {electionInfo.election && 
+      electionInfo.status!== "FINALIZADA" &&
+      electionInfo.status!=="DESAPROVADA" ? (
+        <Card bordered={true}>
+          <Text type="warning">{electionInfo.message}</Text>
+          <p>
+            Fecha de postulación:{" "}
+            {new Date(
+              electionInfo.election.postulation_StartDate
+            ).toLocaleDateString() +
+              " - " +
+              new Date(
+                electionInfo.election.postulation_EndDate
+              ).toLocaleDateString()}
+          </p>
+          <p>
+            Fecha de votación:{" "}
+            {new Date(electionInfo.election.date).toLocaleDateString()}
+          </p>
+        </Card>
+      ):""}
+
+      {electionInfo.status === "POSTULACION" ||
+      electionInfo.status === "VOTACION" ||
+      electionInfo.status === "ESPERA" ? (
+        <ListCandidate electionInfo={electionInfo} />
       ) : (
         ""
       )}

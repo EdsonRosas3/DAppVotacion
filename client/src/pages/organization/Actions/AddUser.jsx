@@ -9,7 +9,7 @@ const AddUser = ({updateListUsers,electionInfo}) => {
   const [ids, setIds] = useState();
   const [list, setList] = useState([]);
   const {idOrganization} = useParams();
-
+  const [disabledStatus, setDisabledStatus] = useState(true);
   const options = [];
 
   for (let i = 0; i < list.length; i++) {
@@ -68,6 +68,31 @@ const AddUser = ({updateListUsers,electionInfo}) => {
     
   };
 
+  const handlerStatusBtn = () => {
+    switch (electionInfo.status) {
+      case "NO_EXISTE":
+        setDisabledStatus(false);
+        break;
+      case "FINALIZADA":
+        setDisabledStatus(false);
+        break;
+      case "POSTULACION":
+        setDisabledStatus(true);
+        break;
+      case "ESPERA":
+        setDisabledStatus(true);
+        break;
+      case "VOTACION":
+        setDisabledStatus(true);
+        break;
+      case "DESAPROVADA":
+        setDisabledStatus(false);
+        break;
+      default:
+        setDisabledStatus(true);
+        break;
+    }
+  }
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -76,13 +101,14 @@ const AddUser = ({updateListUsers,electionInfo}) => {
       } catch (error) {
         message.error("Ocurrio un error");
       }
+      handlerStatusBtn();
     };
     fetch();
-  }, []);
+  }, [electionInfo]);
 
   return (
     <>
-      <Button type="primary" disabled={electionInfo.election} onClick={showModal}>
+      <Button type="primary" disabled={disabledStatus} onClick={showModal}>
         Agregar miembros
       </Button>
       <Modal

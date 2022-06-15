@@ -25,8 +25,7 @@ const formItemLayout = {
 const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { user } = useContext(UserContext);
-  const [candidate, setCandidate] = useState(false);
-  const [disabledStatus, setDisabledStatus] = useState(false);
+  const [disabledStatus, setDisabledStatus] = useState(true);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -65,23 +64,40 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
     },
   };
   const handlerStatusBtn = () => {
-    /* switch (key) {
-      case value:
-        
+    switch (electionInfo.status) {
+      case "NO_EXISTE":
+        setDisabledStatus(true);
         break;
-    
+      case "FINALIZADA":
+        setDisabledStatus(true);
+        break;
+      case "POSTULACION":
+        setDisabledStatus(false);
+        break;
+      case "ESPERA":
+        setDisabledStatus(true);
+        break;
+      case "VOTACION":
+        setDisabledStatus(true);
+        break;
+      case "DESAPROVADA":
+        setDisabledStatus(true);
+        break;
       default:
+        setDisabledStatus(true);
         break;
-    } */
+    }
   }
   useEffect(() => {
     const fetchData = async () => {
-      if(electionInfo.data){
-        const res  = await postulantService.isCandidate(electionInfo.data.id,user.id)
-        handlerStatusBtn();
-        setCandidate(res.data)
-        if(res.data.isCandidate){
-          setCandidate(true)
+      handlerStatusBtn();
+      if(electionInfo.election){
+        if(!electionInfo.election.statusAccept){
+          setDisabledStatus(true)
+        }
+        const res  = await postulantService.isCandidate(electionInfo.election.id,user.id)
+        if(res.data.isCandidate){ 
+          setDisabledStatus(true)
         }
       }
     };
@@ -89,15 +105,13 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   }, [electionInfo, isModalVisible, user.id]);
   return (
     <>
-      {!candidate && (
-        <Button
+      <Button
         type="primary"
         disabled={disabledStatus}
         onClick={showModal}
       >
         Postular
-      </Button>)
-      }
+      </Button>
       <Modal
         title="Postular como candidato"
         visible={isModalVisible}
