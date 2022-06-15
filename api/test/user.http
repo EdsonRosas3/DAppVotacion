@@ -25,4 +25,21 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyMjQ
 
 ###
 GET http://localhost:4000/api/users/1/organizations HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MDc2MTgzLCJleHAiOjE2NTUxNjI1ODN9.aQU4E3MZ-KJyj8IkkfVQmus77Zr8uGce71JtPKu4YRs
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+###
+PUT http://localhost:4000/api/users/3/acceptElection/7 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+Content-Type: application/json
+
+{
+
+}
+
+###
+PUT http://localhost:4000/api/users/1/voteElection/7 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+Content-Type: application/json
+ 
+ {
+
+ }

@@ -22,13 +22,13 @@ router.get(
   userCtrl.getOrganizationsByUser
 );
 
-router.get(
+router.put(
   "/:idUser/acceptElection/:idOrganization",
   [authJwt.verifyToken],
   userCtrl.userAcceptElection
 );
 
-router.get(
+router.put(
   "/:idUser/voteElection/:idOrganization",
   [authJwt.verifyToken],
   userCtrl.userVoteElection

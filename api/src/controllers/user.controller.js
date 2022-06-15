@@ -2,6 +2,8 @@ const User = require("../models/User");
 const Role = require("../models/Role");
 const Organization = require("../models/Organization");
 const Participant = require("../models/Participant");
+const Election = require("../models/Election");
+const { getLastElection } = require("../utils");
 
 const createUser = async (req, res) => {
   try {
@@ -59,10 +61,12 @@ const userAcceptElection = async (req, res) => {
       where: { electionId: lastElection.id },
     });
     //revisar si funciona los calculos
-    if (participantsAccept.count * allParticipants.count/100 >= 51) {
+    if (participantsAccept.count *100 /allParticipants.count>= 51) {
+      console.log("PORCENTAJE: ",participantsAccept.count *100 /allParticipants.count);
       const election = await Election.update({statusAccept: true}, {where: {id: lastElection.id}});
     }
-    return res.status(200).json(participantAccept,{message: "Usuario acepto la eleccion"});
+    //return res.status(200).json(participantAccept,{message: "Usuario acepto la eleccion"});
+    return res.status(200).json({message: "Usuario acepto la eleccion"});
 
   } catch (error) {
     return res.status(500).json(error);
@@ -73,44 +77,34 @@ const userVoteElection = async (req, res) => {
   try {
 
     const lastElection = await getLastElection(req.params.idOrganization);
-    const participantVoted = await Participant.update(
-      { voteElection: true},
-      { where: {userId: req.params.idUser, electionId: lastElection.id}}
-    );
+    if(lastElection.status === "VOTACION"){
+      const participantVoted = await Participant.update(
+        { voteElection: true},
+        { where: {userId: req.params.idUser, electionId: lastElection.id}}
+      );
+  
+      const participantsVoted = await Participant.findAndCountAll({
+        where: { electionId: lastElection.id, voteElection: true },
+      });
+  
+      const allParticipants = await Participant.findAndCountAll({
+        where: { electionId: lastElection.id },
+      });
+  
+      let participantAbsent = allParticipants.count - participantsVoted.count;
+      const election = await Election.update({votesCast: participantsVoted.count, absentVotes: participantAbsent}, {where: {id: lastElection.id}});
+      return res.status(200).json(election, {message: "Usuario voto en la eleccion, votos actualizados en eleccion"});  
+    }
+    else{
+      return res.status(200).json({message: "No es dia de votacion"});
+    }
 
-    const participantsVoted = await Participant.findAndCountAll({
-      where: { electionId: lastElection.id, voteElection: true },
-    });
-
-    const allParticipants = await Participant.findAndCountAll({
-      where: { electionId: lastElection.id },
-    });
-
-    let participantAbsent = allParticipants.count - participantsVoted.count;
-    const election = await Election.update({votesCast: participantsVoted.count, absentVotes: participantAbsent}, {where: {id: lastElection.id}});
-    return res.status(200).json(election, participantVoted,{message: "Usuario voto en la eleccion, votos actualizados en eleccion"});
-
+    
   } catch (error) {
     return res.status(500).json(error);
   }
 };
 
-const getLastElection = async (idOrganization) => {
-  try {
-    const elections = await Election.findAndCountAll({
-      where: { organization_id: idOrganization },
-    });
-    if (elections.count >= 1) {
-      let lastElection = elections.rows[elections.count - 1];
-      return lastElection;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
 module.exports = {
   createUser,
   getUsers,
@@ -118,4 +112,4 @@ module.exports = {
   getOrganizationsByUser,
   userAcceptElection,
   userVoteElection
-}
+};

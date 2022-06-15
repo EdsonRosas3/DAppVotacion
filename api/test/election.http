@@ -8,19 +8,19 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:4000/api/elections/1 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjU0NDczMTY1LCJleHAiOjE2NTQ1NTk1NjV9.t5w66e9Z-EwfCH1NrWBn7NLG05-xhdERs_SxdTaK468
+POST http://localhost:4000/api/elections/7 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
 Content-Type: application/json
 
 {
-    "postulation_StartDate":"2022-06-06",
-    "postulation_EndDate": "2022-06-12",
-    "date": "2022-06-19"
+    "postulation_StartDate":"2022-06-05",
+    "postulation_EndDate": "2022-06-19",
+    "date": "2022-06-29"
 }
 
 ###
-GET http://localhost:4000/api/elections/exist/4 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MjU2MjM2LCJleHAiOjE2NTUzNDI2MzZ9.GkgmGaNXkNqrhScfVSF7dVKmC3g0dp2PpB1Krh3FpFk
+GET http://localhost:4000/api/elections/exist/7 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
 ###
-GET http://localhost:4000/api/elections/4/postulants HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDg3NDI5LCJleHAiOjE2NTUxNzM4Mjl9.zFefLj6TmTOCkfGmZ9J3ikRNknDdnf0sZ_zjsBPDWts
+GET http://localhost:4000/api/elections/2/postulants HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
