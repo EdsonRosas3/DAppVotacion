@@ -85,7 +85,7 @@ const AddUser = ({updateListUsers,electionInfo}) => {
       case "VOTACION":
         setDisabledStatus(true);
         break;
-      case "DESAPROVADA":
+      case "DESAPROBADO":
         setDisabledStatus(false);
         break;
       default:

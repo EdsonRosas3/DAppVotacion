@@ -115,7 +115,7 @@ const getMessageByStatus = (status) => {
   if (status === "ESPERA") {
     return "Estamos en etapa de elección, pero no es dia de elección, ni etapa de postulación";
   }
-  if (status === "DESAPROVADA") {
+  if (status === "DESAPROBADA") {
     return "La elección no fue aprobada";
   }
   return "";

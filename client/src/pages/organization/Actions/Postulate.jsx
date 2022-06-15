@@ -80,7 +80,7 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
       case "VOTACION":
         setDisabledStatus(true);
         break;
-      case "DESAPROVADA":
+      case "DESAPROBADO":
         setDisabledStatus(true);
         break;
       default:

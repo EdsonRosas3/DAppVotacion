@@ -25,5 +25,23 @@ export const electionService = {
   voteNow: (idElection,idCandidate) => {
     const api = AxiosFactory("elections");
     return api.post("/"+idElection+"/vote",{idCandidate});
+  },
+
+  userAcceptElection: (idUser,idOrganization) => {
+    const api = AxiosFactory("users");
+    return api.put("/"+idUser+"/acceptElection/"+idOrganization);
+  },
+  userVoteElection: (idUser,idOrganization) => {
+    const api = AxiosFactory("users");
+    return api.put("/"+idUser+"/voteElection/"+idOrganization);
+  },
+
+  verifyUserAcceptElection: (idUser,idOrganization) => {
+    const api = AxiosFactory("users");
+    return api.get("/"+idUser+"/acceptElection/"+idOrganization);
+  },
+  verifyUserVoteElection: (idUser,idOrganization) => {
+    const api = AxiosFactory("users");
+    return api.get("/"+idUser+"/voteElection/"+idOrganization);
   }
 };

@@ -28,10 +28,22 @@ router.put(
   userCtrl.userAcceptElection
 );
 
+router.get(
+  "/:idUser/acceptElection/:idOrganization",
+  [authJwt.verifyToken],
+  userCtrl.verifyUserAcceptElection
+);
+
 router.put(
   "/:idUser/voteElection/:idOrganization",
   [authJwt.verifyToken],
   userCtrl.userVoteElection
+);
+
+router.get(
+  "/:idUser/voteElection/:idOrganization",
+  [authJwt.verifyToken],
+  userCtrl.verifyUserVoteElection
 );
 
 module.exports = router;

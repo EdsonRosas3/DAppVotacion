@@ -72,6 +72,22 @@ const userAcceptElection = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+const verifyUserAcceptElection = async (req, res) => {
+  try {
+
+    const lastElection = await getLastElection(req.params.idOrganization);
+    const participant = await Participant.findOne({where: {userId: req.params.idUser, electionId: lastElection.id}});
+
+    if(participant.acceptElection){
+      return res.status(200).json({status:true,message: "Usted acepto la eleccion"});
+    }else{
+      return res.status(200).json({status:false,message: "Acepte la eleccion!"});
+    }
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
 const userVoteElection = async (req, res) => {
   try {
@@ -104,12 +120,34 @@ const userVoteElection = async (req, res) => {
     return res.status(500).json(error);
   }
 };
+const verifyUserVoteElection = async (req, res) => {
+  try {
+    const lastElection = await getLastElection(req.params.idOrganization);
+    if(lastElection.status === "VOTACION"){
+      const participant = await Participant.findOne({where: {userId: req.params.idUser, electionId: lastElection.id}});
 
+      if(participant.voteElection){
+        return res.status(200).json({status:true,message: "Usted voto en la eleccion"});
+      }else{
+        return res.status(200).json({status:false,message: "Vota ahora en la eleccion!"});
+      }
+    }
+    else{
+      return res.status(200).json({message: "No es dia de votacion"});
+    }
+
+    
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 module.exports = {
   createUser,
   getUsers,
   getUser,
   getOrganizationsByUser,
   userAcceptElection,
-  userVoteElection
+  verifyUserAcceptElection,
+  userVoteElection,
+  verifyUserVoteElection
 };

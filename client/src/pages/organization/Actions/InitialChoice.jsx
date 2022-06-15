@@ -105,7 +105,7 @@ const Choice = ({electionInfo,updateOrganizationEvent}) => {
       case "VOTACION":
         setDisabledStatus(true);
         break;
-      case "DESAPROVADA":
+      case "DESAPROBADO":
         setDisabledStatus(false);
         break;
       default:
