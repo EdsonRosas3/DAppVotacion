@@ -1,5 +1,5 @@
 POST http://localhost:4000/api/organizations/5 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjczMzE5LCJleHAiOjE2NTUzNTk3MTl9.ezJePwqfJOChs0R8XaKIx9ki0b8rHsIznSNrUDzHb4g
 Content-Type: application/json
 
 {
@@ -23,8 +23,8 @@ Content-Type: application/json
 
 
 ###
-POST  http://localhost:4000/api/organizations/7/users HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+POST  http://localhost:4000/api/organizations/6/users HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjczMzE5LCJleHAiOjE2NTUzNTk3MTl9.ezJePwqfJOChs0R8XaKIx9ki0b8rHsIznSNrUDzHb4g
 Content-Type: application/json
 
 {

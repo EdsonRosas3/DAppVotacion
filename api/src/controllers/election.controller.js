@@ -7,7 +7,10 @@ const { getStatusElection, getLastElection } = require("../utils");
 
 const createElection = async (req, res) => {
   try {
-    const { postulation_StartDate, postulation_EndDate, date } = req.body;
+    let { postulation_StartDate, postulation_EndDate, date } = req.body;
+    postulation_StartDate = postulation_StartDate+"T23:59:59.000Z";
+    postulation_EndDate = postulation_EndDate+"T23:59:59.000Z";
+    date = date+"T23:59:59.000Z";
     const organization_id = req.params.idOrganization;
     const election = await Election.create({
       postulation_StartDate,
@@ -115,7 +118,7 @@ const getMessageByStatus = (status) => {
   if (status === "ESPERA") {
     return "Estamos en etapa de elección, pero no es dia de elección, ni etapa de postulación";
   }
-  if (status === "DESAPROBADA") {
+  if (status === "DESAPROBAD0") {
     return "La elección no fue aprobada";
   }
   return "";
