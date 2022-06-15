@@ -19,8 +19,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:4000/api/elections/exist/2 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjU1MDk3NjQ1LCJleHAiOjE2NTUxODQwNDV9.BIy4bQ5GAhK_JrduwsgYjsp9BqBhA2DyDLoyULKkTHA
+GET http://localhost:4000/api/elections/exist/4 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MjU2MjM2LCJleHAiOjE2NTUzNDI2MzZ9.GkgmGaNXkNqrhScfVSF7dVKmC3g0dp2PpB1Krh3FpFk
 ###
 GET http://localhost:4000/api/elections/4/postulants HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MDg3NDI5LCJleHAiOjE2NTUxNzM4Mjl9.zFefLj6TmTOCkfGmZ9J3ikRNknDdnf0sZ_zjsBPDWts

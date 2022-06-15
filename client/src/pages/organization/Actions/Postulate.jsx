@@ -25,7 +25,8 @@ const formItemLayout = {
 const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { user } = useContext(UserContext);
-  const [candidate, setCandidate] = useState(false)
+  const [candidate, setCandidate] = useState(false);
+  const [disabledStatus, setDisabledStatus] = useState(false);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -63,12 +64,22 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
       },
     },
   };
-
+  const handlerStatusBtn = () => {
+    /* switch (key) {
+      case value:
+        
+        break;
+    
+      default:
+        break;
+    } */
+  }
   useEffect(() => {
     const fetchData = async () => {
       if(electionInfo.data){
         const res  = await postulantService.isCandidate(electionInfo.data.id,user.id)
-        console.log("HOLA",res)
+        handlerStatusBtn();
+        setCandidate(res.data)
         if(res.data.isCandidate){
           setCandidate(true)
         }
@@ -81,7 +92,7 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
       {!candidate && (
         <Button
         type="primary"
-        disabled={!electionInfo.postulation || candidate}
+        disabled={disabledStatus}
         onClick={showModal}
       >
         Postular

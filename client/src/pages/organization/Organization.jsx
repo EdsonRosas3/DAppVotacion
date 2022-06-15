@@ -36,7 +36,7 @@ const OrganizationOne = () => {
         const informationElection = await electionService.infoElection(
           idOrganization
         );
-        console.log(informationElection);
+        console.log("Ult election:",informationElection);
         setElectionInfo(informationElection.data);
       } catch (error) {
         message.error("Ocurrio un error");

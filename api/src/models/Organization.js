@@ -20,7 +20,7 @@ Organization.init({
   },
   type:{
     type: DataTypes.ENUM,
-    values: ['Centralizada','Descentralizada']
+    values: ['CENTRALIZADA','DESCENTRALIZADA']
   },
   creatorUserId:{
     type: DataTypes.INTEGER,

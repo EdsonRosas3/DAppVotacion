@@ -27,90 +27,13 @@ const createElection = async (req, res) => {
   }
 };
 
-const existElections = async (req, res) => {
-  try {
-    let nowDate = new Date();
-    let dayNow = nowDate.getUTCDate();
-    let monthNow = nowDate.getMonth();
-    let yearNow = nowDate.getFullYear();
-
-    const lastElection = await getLastElection(req.params.idOrganization);
-    if (lastElection == null || lastElection == undefined)
-      return res.status(200).json({
-        message: "No hay elecciones pendientes",
-        election: false,
-        postulation: false,
-        data: null,
-      });
-
-    let dateElection = lastElection.date;
-    let dayElection = dateElection.getUTCDate();
-    let monthElection = dateElection.getMonth();
-    let yearElection = dateElection.getFullYear();
-
-    let date_startPostulation = lastElection.postulation_StartDate;
-    let dayStartP = date_startPostulation.getUTCDate();
-    let monthStartP = date_startPostulation.getMonth();
-    let yearStartP = date_startPostulation.getFullYear();
-
-    let date_endPostulation = lastElection.postulation_EndDate;
-    let dayEndP = date_endPostulation.getUTCDate();
-    let monthEndP = date_endPostulation.getMonth();
-    let yearEndP = date_endPostulation.getFullYear();
-
-    if (
-      dayNow >= dayStartP &&
-      dayNow <= dayEndP &&
-      monthNow >= monthStartP &&
-      monthNow <= monthEndP &&
-      yearNow >= yearStartP &&
-      yearNow <= yearEndP
-    ) {
-      return res.status(200).json({
-        message: "Es fase de postulacion de candidatos",
-        election: false,
-        postulation: true,
-        data: lastElection,
-      });
-    } else {
-      console.log(
-        dayNow,
-        dayElection,
-        monthNow,
-        monthElection,
-        yearNow,
-        yearElection
-      );
-      if (
-        dayNow == dayElection &&
-        monthNow == monthElection &&
-        yearNow == yearElection
-      ) {
-        return res.status(200).json({
-          message: "Hoy es la eleccion",
-          election: true,
-          postulation: false,
-          data: lastElection,
-        });
-      } else {
-        return res.status(200).json({
-          message: "No es dia de eleccion y no es fase de postulacion",
-          election: false,
-          postulation: false,
-          data: lastElection,
-        });
-      }
-    }
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-};
 const existElectionsV2 = async (req, res) => {
   try {
     const lastElection = await getLastElection(req.params.idOrganization);
+    const organization = await Organization.findByPk(req.params.idOrganization);
     if (lastElection == null || lastElection == undefined) {
       return res.status(200).json({
-        type: "NO_EXISTE",
+        status: "NO_EXISTE",
         message: "No hay elecciones pendientes",
         election: false,
         postulation: false,
@@ -120,7 +43,7 @@ const existElectionsV2 = async (req, res) => {
 
     if (lastElection.status == "FINALIZADA") {
       return res.status(200).json({
-        type: "FINALIZADA",
+        status: "FINALIZADA",
         message: "La eleccion ya ha finalizado",
         election:lastElection,
       });
@@ -128,7 +51,7 @@ const existElectionsV2 = async (req, res) => {
     //si es centralizada -> todo sigue normal
     //si es descentralizada -> control de la mayoria de usuarios
     //si la mayoria no ha aceptado -> election con sus datos, status: ESPERA, La eleccion no esta habilitada
-    if(lastElection.organization.type == "CENTRALIZADA" || lastElection.statusAccept == true){
+    if(organization.type == "CENTRALIZADA" || lastElection.statusAccept == true){
         let currentStatus = getStatusElection(
         lastElection.postulation_StartDate,
         lastElection.postulation_EndDate,
@@ -137,7 +60,7 @@ const existElectionsV2 = async (req, res) => {
       let message = getMessageByStatus(currentStatus);
       if (lastElection.status === currentStatus) {
         return res.status(200).json({
-          type: lastElection.status,
+          status: lastElection.status,
           message,
           election: lastElection
         });
@@ -156,14 +79,14 @@ const existElectionsV2 = async (req, res) => {
       let message = "La eleccion no esta habilitada";
       if (lastElection.status === currentStatus) {
         return res.status(200).json({
-          type: lastElection.status,
+          status: lastElection.status,
           message,
           election: lastElection
         });
       }else{
         const newElection = await lastElection.update({status: currentStatus})
         message = "La eleccion no esta habilitada";
-        return res.status(200).json({type:newElection.status,message,election:newElection})
+        return res.status(200).json({status:newElection.status,message,election:newElection})
       }
     }
 
@@ -269,7 +192,6 @@ const isCadidateOfElection = async (req, res) => {
 
 module.exports = {
   createElection,
-  existElections,
   existElectionsV2,
   getCandidatesByElection,
   updateVotesElection,

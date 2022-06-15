@@ -181,18 +181,30 @@ const relationUsersOrg = async () => {
   for (let index = 80; index <= 200; index++) {
     org2.addUser(index);
   }
+  org2.addUser(2);
+  org2.addUser(3);
   org2.addUser(4);
 
   const org3 = await Organization.findByPk(3);
   for (let index = 150; index <= 250; index++) {
     org3.addUser(index);
   }
+  org3.addUser(2);
+  org3.addUser(3);
   org3.addUser(4);
 
   const org4 = await Organization.findByPk(4);
   for (let index = 1; index <= 307; index++) {
     org4.addUser(index);
   }
+
+  const org5 = await Organization.findByPk(5);
+  for (let index = 100; index <= 200; index++) {
+    org5.addUser(index);
+  }
+  org5.addUser(2);
+  org5.addUser(3);
+  org5.addUser(4);
 };
 const createOrganizations = async () => {
   let lenth = await Organization.count();
@@ -221,11 +233,18 @@ const createOrganizations = async () => {
         creatorUserId: 3,
       },
       {
-        name: "Eleccion de Gobernador CBBA",
+        name: "Elección de Gobernador CBBA",
         description: "Elecciones de gobernador del departamento de Cochabamba",
         reach: "Departamental",
         type: "Descentralizada",
         creatorUserId: 4,
+      },
+      {
+        name: "Federación de transporte CBBA",
+        description: "Este es un grupo de transporte de Cochabamba para elecciones",
+        reach: "Departamental",
+        type: "Descentralizada",
+        creatorUserId: 5,
       },
     ];
     Organization.bulkCreate(organizations)
