@@ -1,8 +1,9 @@
 const Election = require("../models/Election");
 const Organization = require("../models/Organization");
 const Postulant = require("../models/Postulant");
+const Participant = require("../models/Participant");
 const User = require("../models/User");
-const { getStatusElection } = require("../utils");
+const { getStatusElection, getLastElection } = require("../utils");
 
 const createElection = async (req, res) => {
   try {
@@ -21,6 +22,15 @@ const createElection = async (req, res) => {
       ),
       organization_id,
     });
+
+    const organization = await Organization.findByPk(organization_id);
+    let usersOrganization = await organization.getUsers();
+
+    for (let i = 0; i < usersOrganization.length; i++) {
+      let user = usersOrganization[i];
+      let participant = await Participant.create({userId:user.id, electionId:election.id});
+    };
+    
     return res.status(201).json(election);
   } catch (error) {
     return res.status(500).json(error);
@@ -107,22 +117,6 @@ const getMessageByStatus = (status) => {
     return "Estamos en etapa de eleccion, pero no es dia de eleccion, ni etapa de postulacion";
   }
   return "";
-}
-const getLastElection = async (idOrganization) => {
-  try {
-    const elections = await Election.findAndCountAll({
-      where: { organization_id: idOrganization },
-    });
-    if (elections.count >= 1) {
-      let lastElection = elections.rows[elections.count - 1];
-      return lastElection;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
 };
 
 const getCandidatesByElection = async (req, res) => {

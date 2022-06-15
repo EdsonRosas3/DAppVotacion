@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const Election = require("../models/Election");
 
 const encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -39,14 +40,35 @@ const getStatusElection = (
 };
 
 function isBetween(fecha, fechaInicio, fechaFin) {
+  fecha = new Date(fecha);
+  fechaInicio = new Date(fechaInicio);
+  fechaFin = new Date(fechaFin);
   return (
     fecha.getTime() >= fechaInicio.getTime() &&
     fecha.getTime() <= fechaFin.getTime()
   );
-}
+};
+
+const getLastElection = async (idOrganization) => {
+  try {
+    const elections = await Election.findAndCountAll({
+      where: { organization_id: idOrganization },
+    });
+    if (elections.count >= 1) {
+      let lastElection = elections.rows[elections.count - 1];
+      return lastElection;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
 module.exports = {
   encryptPassword,
   comparePassword,
   getStatusElection,
+  getLastElection,
 };
