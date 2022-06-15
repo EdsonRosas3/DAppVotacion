@@ -11,9 +11,9 @@ router.post(
 );
 
 router.get(
-  "/",
+  "/organizations/:idOrganization",
   [authJwt.verifyToken],
-  userCtrl.getUsers
+  userCtrl.getUsersWithoutOrganization
 );
 
 router.get(

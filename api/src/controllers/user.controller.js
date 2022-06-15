@@ -25,6 +25,8 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
+    const {idOrganization} = req.params;
+
     const users = await User.findAll();
     return res.status(200).json(users);
   } catch (error) {
@@ -32,7 +34,24 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {};
+
+const getUsersWithoutOrganization = async (req, res) => {
+  try {
+    const {idOrganization} = req.params;
+    const users = await User.findAll({include:Organization});
+    const usersWithoutOrganization = users.filter(user => {
+      if(user.organizations.length === 0){
+        return user;
+      }else{
+        
+      }
+    });
+    return res.status(200).json(usersWithoutOrganization);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+    
 
 const getOrganizationsByUser = async (req, res) => {
   try {
@@ -144,10 +163,10 @@ const verifyUserVoteElection = async (req, res) => {
 module.exports = {
   createUser,
   getUsers,
-  getUser,
   getOrganizationsByUser,
   userAcceptElection,
   verifyUserAcceptElection,
   userVoteElection,
-  verifyUserVoteElection
+  verifyUserVoteElection,
+  getUsersWithoutOrganization
 };

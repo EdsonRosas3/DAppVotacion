@@ -6,8 +6,8 @@ export const userService = {
     const api = AxiosFactory("users");
     return api.get("/"+idUser+"/organizations");
   },
-  getUsers: () => {
+  getUsers: (idOrganization) => {
     const api = AxiosFactory("users");
-    return api.get("/");
+    return api.get("/organizations/"+idOrganization);
   }
 };

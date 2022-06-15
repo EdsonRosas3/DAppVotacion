@@ -12,9 +12,9 @@ const ListPostulante = ({ electionInfo, updateListCandidates }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (electionInfo.data !== null) {
+      if (electionInfo.election !== null) {
         
-        const res = await electionService.allCandidates(electionInfo.data.id);
+        const res = await electionService.allCandidates(electionInfo.election.id);
         console.log(res)
         //setCandidates(res.data.users);
       }
