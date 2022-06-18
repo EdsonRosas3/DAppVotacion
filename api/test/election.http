@@ -23,5 +23,5 @@ GET http://localhost:4000/api/elections/exist/6 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjczMzE5LCJleHAiOjE2NTUzNTk3MTl9.ezJePwqfJOChs0R8XaKIx9ki0b8rHsIznSNrUDzHb4g
 
 ###
-GET http://localhost:4000/api/elections/2/postulants HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjU1MjYyNDM4LCJleHAiOjE2NTUzNDg4Mzh9.oxpJZLyc0zi0miC0Q_Eb2_ab2dXXvvt8euDyWmibuyk
+GET http://localhost:4000/api/elections/4/postulants HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjU1MzE3NzQzLCJleHAiOjE2NTU0MDQxNDN9.lUyzWZOM36QJUesG0xxYQGA4DZgAdlzZCBk2uqenG4E

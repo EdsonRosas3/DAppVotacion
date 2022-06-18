@@ -42,7 +42,7 @@ Election.init({
 }, {
     sequelize,
     modelName: "elections",
-    timestamps: false
+    timestamps: true
 });
 
 module.exports = Election;

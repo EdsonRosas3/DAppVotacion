@@ -1,19 +1,35 @@
-import React,{useEffect} from "react";
+import React, { useEffect, useContext } from "react";
 import { Card, Checkbox } from "antd";
 import { electionService } from "../services";
-//import ContractVotes from "../assets/contractVotes.json";
+import { useParams } from "react-router-dom";
+import ContractContext from "../context/contract/ContractContext";
 
-const Candidate = ({ candidate, electionInfo }) => {
+const Candidate = ({
+  candidate,
+  electionInfo,
+  userId,
+  disabledBtnVote,
+  toggleDisable,
+  block,
+  setHandler
+}) => {
   const { Meta } = Card;
-
-  const voteNow = (e) => {
-    //const res = await electionService.voteNow(electionInfo.data.id,candidate.id);
-    console.log("Vote");
-  }
+  const { idOrganization } = useParams();
+  const {contract} = useContext(ContractContext);
+  const voteNow = async (e) => {
+    /* try {
+      console.log("HWLLO now",contract,block)
+      let voteContractRes = await contract.contractInstance.callStatic().createVote(candidate.id,electionInfo.election.id, { from: contract.account });
+      console.log( "Holas",voteContractRes)
+      //const res = await electionService.userVoteElection(userId, idOrganization);
+      toggleDisable();
+    } catch (error) {} */
+    setHandler(candidate.id+"", electionInfo.election.id+"");
+  };
 
   useEffect(() => {
-    console.log(electionInfo.data.id);
-  }, [electionInfo]);
+    console.log("TODO_CONTRACT: ",contract);
+  }, [electionInfo,contract]);
   return (
     <Card
       style={{ width: "100%", height: "100%" }}
@@ -26,11 +42,8 @@ const Candidate = ({ candidate, electionInfo }) => {
         />
       }
     >
-      <Meta
-        title={candidate.postulant.nameFront}
-        description={candidate.postulant.description}
-      />
-      {electionInfo.election ? (
+      <Meta title={candidate.nameFront} description={candidate.description} />
+      {!disabledBtnVote ? (
         <div style={{ textAlign: "center" }}>
           <Checkbox onChange={voteNow}></Checkbox>
         </div>

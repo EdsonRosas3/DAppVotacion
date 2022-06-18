@@ -21,7 +21,7 @@ const createParticipantes = async () => {
     return;
   }
 
-  for (let index = 1; index <= 100; index++) {
+  for (let index = 1; index <= 10; index++) {
     let participant1 = await Participant.create({
       electionId: 1,
       userId: index,
@@ -48,6 +48,12 @@ const createParticipantes = async () => {
       userId: index,
     });
   }
+  for (let index = 1; index <= 200; index++) {
+    let participant5 = await Participant.create({
+      electionId: 5,
+      userId: index,
+    });
+  }
   console.log("Participantes creados");
 };
 const createPostulations = async () => {
@@ -57,59 +63,66 @@ const createPostulations = async () => {
   }
   let postulants = [
     {
-      nameFront: "MCD Cochabamaba",
-      description: "Montevideo Capital de Desarrollo",
-      votesReceived: 100,
-      electionId: 3,
+      nameFront: "Todos mejores vecinos",
+      description: "Montevideo de vecinos al exito",
+      votesReceived: 0,
+      electionId: 1,
       userId: 2,
+    },
+    {
+      nameFront: "Sidicato mixto",
+      description: "Conocemos la nesecidades de nuestra gente",
+      votesReceived: 0,
+      electionId: 1,
+      userId: 9,
     },
     {
       nameFront: "Todos somos CBBA",
       description: "Todos somos Cochabamba",
-      votesReceived: 50,
-      electionId: 3,
+      votesReceived: 0,
+      electionId: 5,
       userId: 4,
     },
     {
       nameFront: "CBBA - Capital",
       description: "La Capital Cochabamba unidad",
-      votesReceived: 98,
-      electionId: 3,
+      votesReceived: 0,
+      electionId: 5,
       userId: 100,
     },
     {
       nameFront: "CPDA - Cochalos",
       description: "Cochalos de corazon fuerza Desarrollo",
-      votesReceived: 52,
-      electionId: 3,
-      userId: 10,
+      votesReceived: 0,
+      electionId: 5,
+      userId: 81,
     },
     {
       nameFront: "MCD Cochabamaba",
       description: "Montevideo Capital de Desarrollo",
       votesReceived: 100,
-      electionId: 1,
+      electionId: 4,
       userId: 2,
     },
     {
       nameFront: "Todos somos CBBA",
       description: "Todos somos Cochabamba",
       votesReceived: 50,
-      electionId: 1,
+      electionId: 4,
       userId: 3,
     },
     {
       nameFront: "CBBA - Capital",
       description: "La Capital Cochabamba unidad",
       votesReceived: 98,
-      electionId: 1,
+      electionId: 4,
       userId: 100,
     },
     {
       nameFront: "CPDA - Cochalos",
       description: "Cochalos de corazon fuerza Desarrollo",
       votesReceived: 52,
-      electionId: 1,
+      electionId: 4,
       userId: 10,
     },
   ];
@@ -126,42 +139,55 @@ const createElections = async () => {
   }
   let elections = [
     {
-      postulation_StartDate: "2022-06-08",
-      postulation_EndDate: "2022-06-25",
-      date: "2022-07-11",
-      votesCast: 0,
+      postulation_StartDate: "2022-06-01T23:59:59.000Z",
+      postulation_EndDate: "2022-06-12T23:59:59.000Z",
+      date: "2022-06-15T23:59:59.000Z",
+      votesCast: 10,
       absentVotes: 0,
-      status: "ESPERA",
+      status: "VOTACION",
+      statusAccept: true,
       organization_id: 1,
     },
     {
-      postulation_StartDate: "2022-06-01",
-      postulation_EndDate: "2022-06-30",
-      date: "2022-07-11",
+      postulation_StartDate: "2022-06-01T23:59:59.000Z",
+      postulation_EndDate: "2022-06-30T23:59:59.000Z",
+      date: "2022-07-11T23:59:59.000Z",
       votesCast: 0,
       absentVotes: 0,
       status: "POSTULACION",
       organization_id: 2,
     },
     {
-      postulation_StartDate: "2022-07-11",
-      postulation_EndDate: "2022-07-31",
-      date: "2022-08-01",
+      postulation_StartDate: "2022-07-11T23:59:59.000Z",
+      postulation_EndDate: "2022-07-31T23:59:59.000Z",
+      date: "2022-08-01T23:59:59.000Z",
       votesCast: 0,
       absentVotes: 0,
       status: "ESPERA",
       organization_id: 3,
     },
     {
-      postulation_StartDate: "2021-10-01",
-      postulation_EndDate: "2021-10-30",
-      date: "2021-11-01",
+      postulation_StartDate: "2021-10-01T23:59:59.000Z",
+      postulation_EndDate: "2021-10-30T23:59:59.000Z",
+      date: "2021-11-01T23:59:59.000Z",
       votesCast: 300,
       absentVotes: 6,
       status: "FINALIZADA",
       statusAccept: true,
       organization_id: 4,
     },
+    {
+      postulation_StartDate: "2022-06-08T23:59:59.000Z",
+      postulation_EndDate: "2022-06-25T23:59:59.000Z",
+      date: "2022-07-11T23:59:59.000Z",
+      votesCast: 0,
+      absentVotes: 0,
+      statusAccept: true,
+      status: "ESPERA",
+      organization_id: 5,
+    },
+    
+    
   ];
   Election.bulkCreate(elections)
     .then(() => {
@@ -173,7 +199,7 @@ const createElections = async () => {
 };
 const relationUsersOrg = async () => {
   const org = await Organization.findByPk(1);
-  for (let index = 1; index <= 100; index++) {
+  for (let index = 1; index <= 10; index++) {
     org.addUser(index);
   }
 
@@ -199,53 +225,63 @@ const relationUsersOrg = async () => {
   }
 
   const org5 = await Organization.findByPk(5);
-  for (let index = 100; index <= 200; index++) {
+  for (let index = 1; index <= 200; index++) {
     org5.addUser(index);
   }
-  org5.addUser(2);
-  org5.addUser(3);
-  org5.addUser(4);
+
+  const org6 = await Organization.findByPk(6);
+  for (let index = 1; index <= 307; index++) {
+    org6.addUser(index);
+  }
 };
 const createOrganizations = async () => {
   let lenth = await Organization.count();
   if (lenth < 1) {
     let organizations = [
       {
+        name: "Sidicato Qhopi",
+        description: "Este es un grupo para elecciones de presidente",
+        reach: "Vecinal",
+        type: "CENTRALIZADA",
+        creatorUserId: 1,
+      },
+      {
         name: "Ingeniería en Sistemas",
         description: "Grupo electoral de la Universidad Mayor de San Simón",
         reach: "Institucional",
-        type: "Descentralizada",
-        creatorUserId: 1,
+        type: "DESCENTRALIZADA",
+        creatorUserId: 2,
       },
       {
         name: "OTB - Organización de Trabajo de Bienestar",
         description:
           "Elecciones de representantes de la organización de trabajo de bienestar",
         reach: "Vecinal",
-        type: "Centralizada",
-        creatorUserId: 2,
+        type: "CENTRALIZADA",
+        creatorUserId: 3,
       },
       {
         name: "Padres de Familia",
         description: "Colegio Julio Guardia Sandoval - 5to de secundaria B",
         reach: "Municipal",
-        type: "Centralizada",
-        creatorUserId: 3,
+        type: "CENTRALIZADA",
+        creatorUserId: 4,
       },
       {
         name: "Elección de Gobernador CBBA",
         description: "Elecciones de gobernador del departamento de Cochabamba",
         reach: "Departamental",
-        type: "Descentralizada",
-        creatorUserId: 4,
+        type: "DESCENTRALIZADA",
+        creatorUserId: 5,
       },
       {
         name: "Federación de transporte CBBA",
         description: "Este es un grupo de transporte de Cochabamba para elecciones",
         reach: "Departamental",
-        type: "Descentralizada",
-        creatorUserId: 5,
+        type: "DESCENTRALIZADA",
+        creatorUserId: 6,
       },
+      
     ];
     Organization.bulkCreate(organizations)
       .then(() => {

@@ -7,7 +7,7 @@ const ShowGraph = ({listCandidates}) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await convertDataUsers(listCandidates);
+        const res = convertDataUsers(listCandidates);
         setData(res);
       } catch (error) {   
         console.log("Ocurrio un error");
@@ -15,7 +15,7 @@ const ShowGraph = ({listCandidates}) => {
     }; 
     fetch();
     
-  }, []);
+  }, [listCandidates]);
 
 
   const convertDataUsers = (users) => {

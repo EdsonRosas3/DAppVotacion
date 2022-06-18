@@ -15,7 +15,7 @@ Participant.init({
 {
     sequelize,
     modelName:"participants",
-    timestamps: false
+    timestamps: true
 })
 module.exports = Participant;
 

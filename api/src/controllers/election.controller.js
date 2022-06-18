@@ -42,8 +42,16 @@ const createElection = async (req, res) => {
 
 const existElectionsV2 = async (req, res) => {
   try {
-    const lastElection = await getLastElection(req.params.idOrganization);
+    const updatePosibleElection = await getLastElection(req.params.idOrganization);
     const organization = await Organization.findByPk(req.params.idOrganization);
+
+    if(organization.type == "CENTRALIZADA"){
+      if ( updatePosibleElection.statusAccept === false) {
+        await updatePosibleElection.update({statusAccept:true});
+      }
+    }
+    const lastElection = await getLastElection(req.params.idOrganization);
+
     if (lastElection == null || lastElection == undefined) {
       return res.status(200).json({
         status: "NO_EXISTE",
@@ -61,17 +69,19 @@ const existElectionsV2 = async (req, res) => {
     }
 
     
-    //si es centralizada -> todo sigue normal
-    //si es descentralizada -> control de la mayoria de usuarios
-    //si la mayoria no ha aceptado -> election con sus datos, status: ESPERA, La elección no esta habilitada
+
+
     if(organization.type == "CENTRALIZADA" || lastElection.statusAccept == true){
         let currentStatus = getStatusElection(
         lastElection.postulation_StartDate,
         lastElection.postulation_EndDate,
         lastElection.date
       )
+     
       let message = getMessageByStatus(currentStatus);
+      console.log("Stado: ",currentStatus);
       if (lastElection.status === currentStatus) {
+
         return res.status(200).json({
           status: lastElection.status,
           message,

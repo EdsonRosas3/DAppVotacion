@@ -19,6 +19,13 @@ const getStatusElection = (
   date_endPostulation = new Date(date_endPostulation);
   dateElection = new Date(dateElection);
   let nowDate = new Date();
+  if (
+    nowDate.getFullYear() === dateElection.getFullYear() &&
+    nowDate.getMonth() === dateElection.getMonth() &&
+    nowDate.getDate() === dateElection.getDate()
+  ) {
+    return "VOTACION";
+  }
   const isPostulation = isBetween(
     nowDate,
     date_startPostulation,
@@ -27,19 +34,14 @@ const getStatusElection = (
   if (isPostulation) {
     return "POSTULACION";
   }
+  
   const isEsperaBefore = isBetween(nowDate, nowDate, date_startPostulation);
   const isEsperaAfter = isBetween(nowDate, date_endPostulation, dateElection);
   if (isEsperaBefore || isEsperaAfter) {
     return "ESPERA";
   }
 
-  if (
-    nowDate.getFullYear() === dateElection.getFullYear() &&
-    nowDate.getMonth() === dateElection.getMonth() &&
-    nowDate.getDate() === dateElection.getDate()
-  ) {
-    return "VOTACION";
-  }
+  
   date_endPostulation = new Date(date_endPostulation);
   if(nowDate.getTime() > date_endPostulation.getTime()){
     return "DESAPROBADO";

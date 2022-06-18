@@ -17,16 +17,11 @@ export const electionService = {
     return api.get("/exist/"+idOrg);
   },
   
-  allCandidates: (idElection) => {
+  allCandidates: (idOganization) => {
     const api = AxiosFactory("elections");
-    return api.get("/"+idElection+"/postulants");
+    return api.get("/"+idOganization+"/postulants");
   },
   
-  voteNow: (idElection,idCandidate) => {
-    const api = AxiosFactory("elections");
-    return api.post("/"+idElection+"/vote",{idCandidate});
-  },
-
   userAcceptElection: (idUser,idOrganization) => {
     const api = AxiosFactory("users");
     return api.put("/"+idUser+"/acceptElection/"+idOrganization);

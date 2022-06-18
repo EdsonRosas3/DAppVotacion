@@ -2,7 +2,6 @@ import React, { useState,useContext,useEffect } from "react";
 import { Modal, Button, message } from "antd";
 import { Form, Input } from "antd";
 import {postulantService} from "../../../services"
-import UserContext from "../../../context/user/UserContext";
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -22,9 +21,8 @@ const formItemLayout = {
   },
 };
 
-const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
+const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganization}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { user } = useContext(UserContext);
   const [disabledStatus, setDisabledStatus] = useState(true);
   const showModal = () => {
     setIsModalVisible(true);
@@ -41,7 +39,7 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     try {
-      const res = await postulantService.addPostulation(electionInfo.data.id,user.id,values)
+      const res = await postulantService.addPostulation(electionInfo.data.id,userId,values)
       message.success(res.data.message)
       handleOk();
       updateOrganizationEvent();
@@ -95,14 +93,14 @@ const Postulate = ({ electionInfo,updateOrganizationEvent }) => {
         if(!electionInfo.election.statusAccept){
           setDisabledStatus(true)
         }
-        const res  = await postulantService.isCandidate(electionInfo.election.id,user.id)
+        const res  = await postulantService.isCandidate(electionInfo.election.id,userId)
         if(res.data.isCandidate){ 
           setDisabledStatus(true)
         }
       }
     };
     fetchData();
-  }, [electionInfo, isModalVisible, user.id]);
+  }, [electionInfo, isModalVisible, userId]);
   return (
     <>
       <Button

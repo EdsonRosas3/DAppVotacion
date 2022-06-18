@@ -97,8 +97,10 @@ const OrganizationOne = () => {
           </Col>
           <Col className="gutter-row" span={4}>
             <Postulate
+              typeOrganization = {data.type}
               electionInfo={electionInfo}
               updateOrganizationEvent={updateOrganizationEvent}
+              userId={user.id}
             />
           </Col>
         </Row>
@@ -119,21 +121,21 @@ const OrganizationOne = () => {
             Fecha de postulación:{" "}
             {new Date(
               electionInfo.election.postulation_StartDate
-            ).toLocaleString() +
+            ).toLocaleDateString() +
               " - " +
               new Date(
                 electionInfo.election.postulation_EndDate
-              ).toLocaleString()}
+              ).toLocaleDateString()}
           </p>
           <p>
             Fecha de votación:{" "}
-            {new Date(electionInfo.election.date).toLocaleString()}
+            {new Date(electionInfo.election.date).toLocaleDateString()}
           </p>
-          {showAcceptElecction && (
+          {showAcceptElecction && data.type === "DESCENTRALIZADA"?(
             <Button onClick={acepatarElection} type="danger">
               Aceptar eleccion
             </Button>
-          )}
+          ):""}
         </Card>
       ) : (
         ""
@@ -142,7 +144,7 @@ const OrganizationOne = () => {
       {electionInfo.status === "POSTULACION" ||
       electionInfo.status === "VOTACION" ||
       electionInfo.status === "ESPERA" ? (
-        <ListCandidate electionInfo={electionInfo} />
+        <ListCandidate electionInfo={electionInfo} userId={user.id} />
       ) : (
         ""
       )}

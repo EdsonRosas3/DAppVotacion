@@ -14,33 +14,39 @@ const OrganizationOne = () => {
   const [data, setData] = useState({});
   const { idOrganization } = useParams();
   const [electionInfo, setElectionInfo] = useState({
-    data: null,
-    election: false,
+    election: null,
+    status: "",
     message: "",
-    postulation: false,
   });
   const [updateListUser, setUpdateListUser] = useState(false);
 
-  const [listResults,setListResults] = useState({});
+  const [listResults,setListResults] = useState({
+    election:{
+      postulation_StartDate:"",
+      postulation_EndDate:"",
+      absentVotes:"",
+      date:"",
+      votesCast:""
+    },
+    candidates:[],
+    exit:false
+  });
 
 
 
-  const updateListUsers = () => {
-    setUpdateListUser(!updateListUser);
-  };
-  const generarPdf = () => {
-   
-  }
   useEffect(() => {
     const fetch = async () => {
       try {
         const res = await organizationService.getUsers(idOrganization);
         setData(res.data);
+
         const informationElection = await electionService.infoElection(
           idOrganization
         );
-        
         setElectionInfo(informationElection.data);
+
+        const res2 = await electionService.allCandidates(Number(idOrganization));
+        setListResults(res2.data);
       } catch (error) {
         message.error("Ocurrio un error");
       }
@@ -48,19 +54,6 @@ const OrganizationOne = () => {
     fetch();
   }, []);
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const res = await electionService.allCandidates(Number(idOrganization));
-        setListResults(res.data);
-      } catch (error) {   
-        message.error("Ocurrio un error");
-      }
-    }; 
-    fetch();
-    
-  }, []);
-  
   return (
     <div >
       <Link to="/auth/dashboard">Volver a organizaciones</Link>
@@ -80,8 +73,8 @@ const OrganizationOne = () => {
       </Link>
       <Text type="secondary">{data.description}</Text>
       <br />
-      <Text type="secondary">{electionInfo.message}</Text>
-      {(listResults.exit)?
+      <Text type="warning">{electionInfo.message}</Text>
+      {(electionInfo.status === "FINALIZADA")?
       <div>
           <Row gutter={16} >
             <Col className="gutter-row" span={8}>
@@ -179,10 +172,21 @@ const OrganizationOne = () => {
           </Row>
         </div>
       </div>
-      :
-      <div>
-        <Title level={3} >La eleccion no ha finalizado</Title>
-      </div>
+      :""}
+      {
+        electionInfo.status === "POSTULACION" ||
+        electionInfo.status === "ESPERA" ||
+        electionInfo.status === "VOTACION"?
+        <div>
+          <Title level={3} >La elección aun no ha finalizado</Title>
+        </div>
+      :""  
+      }
+      {
+        electionInfo.status === "DESAPROBADO"?
+        <div>
+          <Title level={3} >La ultima elección no fue aprobada</Title>
+        </div>:""
       }
     </div>
   );

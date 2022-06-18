@@ -29,7 +29,7 @@ Organization.init({
 }, {
     sequelize,
     modelName: "organizations",
-    timestamps: false
+    timestamps: true
 });
 
 module.exports = Organization;

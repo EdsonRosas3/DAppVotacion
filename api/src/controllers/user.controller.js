@@ -55,9 +55,8 @@ const getUsersWithoutOrganization = async (req, res) => {
 
 const getOrganizationsByUser = async (req, res) => {
   try {
-    const organizations = await User.findByPk(req.params.idUser,{include:Organization});
+    const organizations = await User.findOne({where:{id:req.params.idUser},include:[{model:Organization,order:"createdAt DESC"}]});
     return res.status(200).json(organizations);
-
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -96,6 +95,9 @@ const verifyUserAcceptElection = async (req, res) => {
 
     const lastElection = await getLastElection(req.params.idOrganization);
     const participant = await Participant.findOne({where: {userId: req.params.idUser, electionId: lastElection.id}});
+    if(!participant){
+      return res.status(200).json({status:false,message: "Usted no esta en la eleccion"});
+    }
 
     if(participant.acceptElection){
       return res.status(200).json({status:true,message: "Usted acepto la eleccion"});

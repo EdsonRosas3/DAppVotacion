@@ -8,7 +8,7 @@ const ShowTable = ({listCandidates}) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await convertDataUsers(listCandidates);
+        const res = convertDataUsers(listCandidates);
         setData(res);
       } catch (error) {   
         console.log("Ocurrio un error");
@@ -16,7 +16,7 @@ const ShowTable = ({listCandidates}) => {
     }; 
     fetch();
     
-  }, []);
+  }, [listCandidates]);
 
 
   const convertDataUsers = (users) => {

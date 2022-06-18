@@ -7,7 +7,7 @@ const ShowPie = ({listCandidates,votesCast}) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await convertDataUsers(listCandidates,votesCast);
+        const res =  convertDataUsers(listCandidates,votesCast);
         setData(res);
       } catch (error) {   
         console.log("Ocurrio un error");
@@ -15,7 +15,7 @@ const ShowPie = ({listCandidates,votesCast}) => {
     }; 
     fetch();
     
-  }, []);
+  }, [listCandidates]);
 
 
   const convertDataUsers = (users,votesCast) => {
