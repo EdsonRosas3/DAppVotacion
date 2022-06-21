@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Bar } from '@ant-design/plots';
 
-const ShowTable = ({listCandidates}) => {
+const ShowTable = ({listCandidates,absentVotes}) => {
 
   const [data,setData] = useState([]);
 
@@ -31,6 +31,8 @@ const ShowTable = ({listCandidates}) => {
 
       array.push(_data);
     }
+    const _data = { name: 'Votos Nulos', votes: Number(absentVotes),};
+    array.push(_data);
     return array;
     
   };

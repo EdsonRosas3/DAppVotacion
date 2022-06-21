@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Column } from '@ant-design/plots';
 
-const ShowGraph = ({listCandidates}) => {
+const ShowGraph = ({listCandidates,absentVotes}) => {
   const [data,setData] = useState([]);
 
   useEffect(() => {
@@ -30,6 +30,8 @@ const ShowGraph = ({listCandidates}) => {
 
       array.push(_data);
     }
+    const _data = { name: 'Votos Nulos', votes: Number(absentVotes),};
+    array.push(_data);
     return array;
     
   };

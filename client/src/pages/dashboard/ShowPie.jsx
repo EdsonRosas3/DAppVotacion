@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Pie } from '@ant-design/plots';
 
-const ShowPie = ({listCandidates,votesCast}) => {
+const ShowPie = ({listCandidates,votesCast,absentVotes}) => {
 
   const [data,setData] = useState([]);
   useEffect(() => {
@@ -25,10 +25,11 @@ const ShowPie = ({listCandidates,votesCast}) => {
     for (const i in users) {
       const _data = { name: '', percentage: 0};
       _data.name  = users[i].nameFront;
-      _data.percentage = Number(((users[i].votesReceived)*100)/votesCast);
-
+      _data.percentage    = Number(((users[i].votesReceived)*100)/(votesCast+absentVotes));
       array.push(_data);
     }
+    const _data = { name: 'Votos nulos', percentage:Number(((absentVotes)*100)/(votesCast+absentVotes))}
+    array.push(_data);
     return array;
     
   };
