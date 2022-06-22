@@ -60,10 +60,11 @@ const ListPostulante = ({ electionInfo, updateListCandidates,userId }) => {
 		window.location.reload();
 	}
 
-  window.ethereum.on('accountsChanged', accountChangedHandler);
-
-	window.ethereum.on('chainChanged', chainChangedHandler);
-
+  if(window.ethereum){
+    window.ethereum.on('accountsChanged', accountChangedHandler);
+    window.ethereum.on('chainChanged', chainChangedHandler);
+  }
+  
   const updateEthers = () => {
 		let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
 		setProvider(tempProvider);
