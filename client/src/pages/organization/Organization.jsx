@@ -38,6 +38,8 @@ const OrganizationOne = () => {
       );
       if (res.data.status === false) {
         setShowAcceptElecction(true);
+      }else{
+        setShowAcceptElecction(false)
       }
     } catch (error) {}
   };
@@ -144,7 +146,7 @@ const OrganizationOne = () => {
       {electionInfo.status === "POSTULACION" ||
       electionInfo.status === "VOTACION" ||
       electionInfo.status === "ESPERA" ? (
-        <ListCandidate electionInfo={electionInfo} userId={user.id} />
+        <ListCandidate electionInfo={electionInfo} userId={user.id} updateOrganizationEvent={updateOrganizationEvent} />
       ) : (
         ""
       )}

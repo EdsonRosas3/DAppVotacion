@@ -36,4 +36,4 @@ GET http://localhost:4000/api/organizations/2/users HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MzI3OTE5LCJleHAiOjE2NTU0MTQzMTl9.xo5d7TjPBsPJpsGuU9DhvQRHU2WoEO7S-YrqtfxuG18
 ###
 GET http://localhost:4000/api/organizations/2/notusers HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjU1MzMyOTg2LCJleHAiOjE2NTU0MTkzODZ9.Ey95oYkiYZUWFv1VPgUDB1G7WEi0qYSGuzSwO5f4ulI
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjU1ODc0MDQzLCJleHAiOjE2NTU5NjA0NDN9.CMUoIb9C7kO87RBlGcsw7_aC2jnneDo8mU_dpw4NIsM

@@ -31,7 +31,7 @@ const NormalLoginForm = () => {
 
     <Row style = {{height:"100vh"}} justify="space-around" align="middle">
       <Col span={8} style={{ boxShadow: "rgb(179 179 179 / 85%) -4px 7px 20px"}}>
-        <Title style = {{background:"#1890ff",textAlign:"center",color:'white'}} level={2}>INICIO DE SESION</Title>
+        <Title style = {{background:"#1890ff",textAlign:"center",color:'white'}} level={2}>INICIO DE SESIÓN</Title>
         <Form style={{margin:"2em"}}
           name="normal_login"
           className="login-form"

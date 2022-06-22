@@ -1,34 +1,24 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Row, Col, Typography, Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Typography, Button, message } from "antd";
 import { electionService } from "../../services";
 import Candidate from "../../components/Candidate";
-import ContractContext from "../../context/contract/ContractContext";
 import {ethers} from 'ethers'
+import {useParams,useNavigate} from 'react-router-dom'
 import ABI from "../../context/contract/VotesCotract.json";
+
 const { Title, Text } = Typography;
 
-
-const ListPostulante = ({ electionInfo, updateListCandidates,userId }) => {
+const ListPostulante = ({ electionInfo, updateListCandidates,userId,updateOrganizationEvent }) => {
   const [candidates, setCandidates] = useState([]);
   const [disabledBtnVote, setDisabledBtnVote] = useState(true);
-  const {loadEthereum} = useContext(ContractContext);
-
-
-
+  let navigate = useNavigate();
+  
+  const {idOrganization} = useParams();
 
   const toggleDisable = () => {
     setDisabledBtnVote(true)
   };
   let contractAddress = '0x263ca502164a8D69df8adE929C0C6484Fae565D3';
-
-	const [errorMessage, setErrorMessage] = useState(null);
-	const [defaultAccount, setDefaultAccount] = useState(null);
-	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
-
-	const [currentContractVal, setCurrentContractVal] = useState(null);
-
-	const [provider, setProvider] = useState(null);
-	const [signer, setSigner] = useState(null);
 	const [contract, setContract] = useState(null);
 
   const connectWalletHandler = () => {
@@ -36,73 +26,58 @@ const ListPostulante = ({ electionInfo, updateListCandidates,userId }) => {
 
 			window.ethereum.request({ method: 'eth_requestAccounts'})
 			.then(result => {
-				accountChangedHandler(result[0]);
-				setConnButtonText('Wallet Connected');
+		    updateEthers();
+        contractAddress = result[0];
 			})
 			.catch(error => {
-				setErrorMessage(error.message);
-			
+        message.error("Error al conectar con su billetera MetaMask")
 			});
 
 		} else {
-			console.log('Need to install MetaMask');
-			setErrorMessage('Please install MetaMask browser extension to interact');
+			message.info("Necesita instalar MetaMask")
 		}
 	}
-
-  const accountChangedHandler = (newAccount) => {
-		setDefaultAccount(newAccount);
-		updateEthers();
-	}
-
-  const chainChangedHandler = () => {
-		// reload the page to avoid any errors with chain change mid use of application
-		window.location.reload();
-	}
-
-  if(window.ethereum){
-    window.ethereum.on('accountsChanged', accountChangedHandler);
-    window.ethereum.on('chainChanged', chainChangedHandler);
-  }
   
   const updateEthers = () => {
 		let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
-		setProvider(tempProvider);
-
 		let tempSigner = tempProvider.getSigner();
-		setSigner(tempSigner);
 
 		let tempContract = new ethers.Contract(contractAddress, ABI.abi, tempSigner);
 		setContract(tempContract);	
 	}
 
-	const setHandler = (idCadidato, idElection) => {
-    
-		contract.createVote(idCadidato,idElection);
+	const setHandler = async (idCadidato, idElection) => {
+		
+    try {
+      const resContract = await contract.createVote(idCadidato,idElection);
+      const res = await electionService.userVoteElection(userId,idOrganization,idCadidato)
+      message.success("Su voto a sido registrado")
+      updateOrganizationEvent()
+    } catch (error) {
+      
+    }
 	}
 
-	const getCurrentVal = async () => {
-		let val = await contract.get();
-		setCurrentContractVal(val);
-	}
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (electionInfo.election !== null) {
-        
-          const res = await electionService.allCandidates(electionInfo.election.id);
+          const res = await electionService.allCandidates(idOrganization);
           setCandidates(res.data.candidates);
           if(electionInfo.election.status === "VOTACION"){
-            const res2 = await electionService.verifyUserVoteElection(userId, electionInfo.election.id);
+            connectWalletHandler()
+            const res2 = await electionService.verifyUserVoteElection(userId, idOrganization);
             if(res2.data.status === false){
               setDisabledBtnVote(false);
+            }else{
+              message.info("Usted voto en esta elección")
+              setDisabledBtnVote(true);
             }
           }
         }
-        
       } catch (error) {
-        
+        navigate("/organizations")
       }
     };
     fetchData();
@@ -112,7 +87,6 @@ const ListPostulante = ({ electionInfo, updateListCandidates,userId }) => {
     <>
       <Title level={5}>Lista de candidatos:</Title>
       {!disabledBtnVote && (<Text type="warning">Por favor emita su voto!</Text>)}
-      <Button onClick={connectWalletHandler}>Conectar con Meta</Button>
       <Row
         style={{ background: "#ececec", padding: "10px 0" }}
         justify="space-around"

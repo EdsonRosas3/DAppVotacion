@@ -39,12 +39,13 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     try {
-      const res = await postulantService.addPostulation(electionInfo.data.id,userId,values)
+      const res = await postulantService.addPostulation(electionInfo.election.id,userId,values)
       message.success(res.data.message)
       handleOk();
       updateOrganizationEvent();
       form.resetFields();
     } catch (error) {
+      console.log(error)
       message.error("Error al postularse")
     }
   };

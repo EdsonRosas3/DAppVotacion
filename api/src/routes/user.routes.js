@@ -35,7 +35,7 @@ router.get(
 );
 
 router.put(
-  "/:idUser/voteElection/:idOrganization",
+  "/:idUser/voteElection/:idOrganization/candidato/:idCandidato",
   [authJwt.verifyToken],
   userCtrl.userVoteElection
 );

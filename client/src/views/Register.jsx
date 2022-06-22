@@ -68,7 +68,7 @@ const RegistrationForm = () => {
 
             <Form.Item
               name="email"
-              label="Correo electronico"
+              label="Correo electrónico"
               labelCol={{span:6}}
               rules={[
                 {
@@ -101,7 +101,7 @@ const RegistrationForm = () => {
 
             <Form.Item
               name="confirm"
-              label="confirmar Contraseña"
+              label="Confirmar contraseña"
               labelCol={{span:6}}
               dependencies={['password']}
               hasFeedback

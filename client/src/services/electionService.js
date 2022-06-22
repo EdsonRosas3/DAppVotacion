@@ -26,17 +26,18 @@ export const electionService = {
     const api = AxiosFactory("users");
     return api.put("/"+idUser+"/acceptElection/"+idOrganization);
   },
-  userVoteElection: (idUser,idOrganization) => {
-    const api = AxiosFactory("users");
-    return api.put("/"+idUser+"/voteElection/"+idOrganization);
-  },
-
   verifyUserAcceptElection: (idUser,idOrganization) => {
     const api = AxiosFactory("users");
     return api.get("/"+idUser+"/acceptElection/"+idOrganization);
   },
+
+
   verifyUserVoteElection: (idUser,idOrganization) => {
     const api = AxiosFactory("users");
     return api.get("/"+idUser+"/voteElection/"+idOrganization);
-  }
+  },
+  userVoteElection: (idUser,idOrganization,idCandidato) => {
+    const api = AxiosFactory("users");
+    return api.put("/"+idUser+"/voteElection/"+idOrganization+"/candidato/"+idCandidato);
+  },
 };

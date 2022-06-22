@@ -1,9 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Card, Checkbox } from "antd";
-import { electionService } from "../services";
-import { useParams } from "react-router-dom";
-import ContractContext from "../context/contract/ContractContext";
-
+import "./candidate.css"
 const Candidate = ({
   candidate,
   electionInfo,
@@ -14,17 +11,18 @@ const Candidate = ({
   setHandler
 }) => {
   const { Meta } = Card;
-  const { idOrganization } = useParams();
-  const {contract} = useContext(ContractContext);
-  const voteNow = async (e) => {
-    setHandler(candidate.id+"", electionInfo.election.id+"");
+
+  const voteNow = (e) => {
+    console.log(candidate)
+    setHandler(candidate.userId+"", candidate.electionId+"");
   };
 
   useEffect(() => {
-    console.log("TODO_CONTRACT: ",contract);
-  }, [electionInfo,contract]);
+
+  }, [electionInfo]);
   return (
     <Card
+      className="card-candidate"
       style={{ width: "100%", height: "100%" }}
       cover={
         <img
@@ -35,7 +33,8 @@ const Candidate = ({
         />
       }
     >
-      <Meta title={candidate.nameFront} description={candidate.description} />
+      <Meta style={{whiteSpace:"normal"}} title={candidate.nameFront} description={candidate.description} />
+      
       {!disabledBtnVote ? (
         <div style={{ textAlign: "center" }}>
           <Checkbox onChange={voteNow}></Checkbox>

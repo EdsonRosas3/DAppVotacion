@@ -39,20 +39,25 @@ const getUser = async (req, res) => {};
 const addUsersToOrganization = async (req, res) => {
   try {
     const { users } = req.body;
+    console.log(users)
     const organization = await Organization.findByPk(req.params.idOrganization);
     const lastElection = await getLastElection(req.params.idOrganization);
     
     let i = 0;
     while (i < users.length) {
       const user = await User.findByPk(users[i]);
+      console.log(user)
       organization.addUser(user);
-      let participant = await Participant.create({userId:user.id, electionId:lastElection.id});
+      if(lastElection){
+        let participant = await Participant.create({userId:user.id, electionId:lastElection.id});
+      }
       i++;
     }
 
     return res.status(201).json({message: "Se agrego correctamente"});
 
   } catch (error) {
+    console.log(error)
     return res.status(500).json({message: "Error al agregar usuarios"});
   }
 };

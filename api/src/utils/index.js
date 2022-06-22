@@ -26,6 +26,13 @@ const getStatusElection = (
   ) {
     return "VOTACION";
   }
+  if (
+    nowDate.getFullYear() === date_startPostulation.getFullYear() &&
+    nowDate.getMonth() === date_startPostulation.getMonth() &&
+    nowDate.getDate() === date_startPostulation.getDate()
+  ) {
+    return "POSTULACION";
+  }
   const isPostulation = isBetween(
     nowDate,
     date_startPostulation,
@@ -34,16 +41,16 @@ const getStatusElection = (
   if (isPostulation) {
     return "POSTULACION";
   }
-  
+
   const isEsperaBefore = isBetween(nowDate, nowDate, date_startPostulation);
   const isEsperaAfter = isBetween(nowDate, date_endPostulation, dateElection);
   if (isEsperaBefore || isEsperaAfter) {
     return "ESPERA";
   }
 
-  
+
   date_endPostulation = new Date(date_endPostulation);
-  if(nowDate.getTime() > date_endPostulation.getTime()){
+  if (nowDate.getTime() > date_endPostulation.getTime()) {
     return "DESAPROBADO";
   }
 };

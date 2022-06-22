@@ -34,8 +34,21 @@ const createParticipantes = async () => {
       userId: index,
     });
   }
+  for (let index = 2; index <= 3; index++) {
+    let participant2 = await Participant.create({
+      electionId: 2,
+      userId: index,
+    });
+  }
+
 
   for (let index = 150; index <= 250; index++) {
+    let participant3 = await Participant.create({
+      electionId: 3,
+      userId: index,
+    });
+  }
+  for (let index = 2; index <= 4; index++) {
     let participant3 = await Participant.create({
       electionId: 3,
       userId: index,
@@ -141,7 +154,7 @@ const createElections = async () => {
     {
       postulation_StartDate: "2022-06-01T23:59:59.000Z",
       postulation_EndDate: "2022-06-12T23:59:59.000Z",
-      date: "2022-06-15T23:59:59.000Z",
+      date: "2022-06-22T23:59:59.000Z",
       votesCast: 10,
       absentVotes: 0,
       status: "VOTACION",
@@ -239,7 +252,7 @@ const createOrganizations = async () => {
   if (lenth < 1) {
     let organizations = [
       {
-        name: "Sidicato Qhopi",
+        name: "Sindicato Qhopi",
         description: "Este es un grupo para elecciones de presidente",
         reach: "Vecinal",
         type: "CENTRALIZADA",

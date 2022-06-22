@@ -46,6 +46,13 @@ const existElectionsV2 = async (req, res) => {
     const organization = await Organization.findByPk(req.params.idOrganization);
 
     if(organization.type == "CENTRALIZADA"){
+      if (updatePosibleElection == null || updatePosibleElection == undefined) {
+        return res.status(200).json({
+          status: "NO_EXISTE",
+          message: "No hay elecciones pendientes",
+          election:updatePosibleElection
+        });
+      }
       if ( updatePosibleElection.statusAccept === false) {
         await updatePosibleElection.update({statusAccept:true});
       }

@@ -8,7 +8,7 @@ const { getLastElection } = require("../utils");
 const createUser = async (req, res) => {
   try {
     const { name, last_name, username, email, password } = req.body;
-    
+
     const user = await User.create({
       name,
       last_name,
@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const {idOrganization} = req.params;
+    const { idOrganization } = req.params;
 
     const users = await User.findAll();
     return res.status(200).json(users);
@@ -37,13 +37,13 @@ const getUsers = async (req, res) => {
 
 const getUsersWithoutOrganization = async (req, res) => {
   try {
-    const {idOrganization} = req.params;
-    const users = await User.findAll({include:Organization});
+    const { idOrganization } = req.params;
+    const users = await User.findAll({ include: Organization });
     const usersWithoutOrganization = users.filter(user => {
-      if(user.organizations.length === 0){
+      if (user.organizations.length === 0) {
         return user;
-      }else{
-        
+      } else {
+
       }
     });
     return res.status(200).json(usersWithoutOrganization);
@@ -51,11 +51,15 @@ const getUsersWithoutOrganization = async (req, res) => {
     return res.status(500).json(error);
   }
 }
-    
+
 
 const getOrganizationsByUser = async (req, res) => {
   try {
-    const organizations = await User.findOne({where:{id:req.params.idUser},include:[{model:Organization,order:"createdAt DESC"}]});
+    const organizations = await User.findOne({
+      where: { id: req.params.idUser }, include: [{
+        model: Organization, order: "id DESC"
+      }]
+    });
     return res.status(200).json(organizations);
   } catch (error) {
     return res.status(500).json(error);
@@ -67,8 +71,8 @@ const userAcceptElection = async (req, res) => {
 
     const lastElection = await getLastElection(req.params.idOrganization);
     const participantAccept = await Participant.update(
-      { acceptElection: true},
-      { where: {userId: req.params.idUser, electionId: lastElection.id}}
+      { acceptElection: true },
+      { where: { userId: req.params.idUser, electionId: lastElection.id } }
     );
 
     const participantsAccept = await Participant.findAndCountAll({
@@ -79,12 +83,12 @@ const userAcceptElection = async (req, res) => {
       where: { electionId: lastElection.id },
     });
     //revisar si funciona los calculos
-    if (participantsAccept.count *100 /allParticipants.count>= 51) {
-      console.log("PORCENTAJE: ",participantsAccept.count *100 /allParticipants.count);
-      const election = await Election.update({statusAccept: true}, {where: {id: lastElection.id}});
+    if (participantsAccept.count * 100 / allParticipants.count >= 51) {
+      console.log("PORCENTAJE: ", participantsAccept.count * 100 / allParticipants.count);
+      const election = await Election.update({ statusAccept: true }, { where: { id: lastElection.id } });
     }
     //return res.status(200).json(participantAccept,{message: "Usuario acepto la eleccion"});
-    return res.status(200).json({message: "Usuario acepto la eleccion"});
+    return res.status(200).json({ message: "Usuario acepto la eleccion" });
 
   } catch (error) {
     return res.status(500).json(error);
@@ -94,15 +98,15 @@ const verifyUserAcceptElection = async (req, res) => {
   try {
 
     const lastElection = await getLastElection(req.params.idOrganization);
-    const participant = await Participant.findOne({where: {userId: req.params.idUser, electionId: lastElection.id}});
-    if(!participant){
-      return res.status(200).json({status:false,message: "Usted no esta en la eleccion"});
+    const participant = await Participant.findOne({ where: { userId: req.params.idUser, electionId: lastElection.id } });
+    if (!participant) {
+      return res.status(200).json({ status: false, message: "Usted no esta en la eleccion" });
     }
 
-    if(participant.acceptElection){
-      return res.status(200).json({status:true,message: "Usted acepto la eleccion"});
-    }else{
-      return res.status(200).json({status:false,message: "Acepte la eleccion!"});
+    if (participant.acceptElection) {
+      return res.status(200).json({ status: true, message: "Usted acepto la eleccion" });
+    } else {
+      return res.status(200).json({ status: false, message: "Acepte la eleccion!" });
     }
 
   } catch (error) {
@@ -114,50 +118,51 @@ const userVoteElection = async (req, res) => {
   try {
 
     const lastElection = await getLastElection(req.params.idOrganization);
-    if(lastElection.status === "VOTACION"){
+    if (lastElection.status === "VOTACION") {
       const participantVoted = await Participant.update(
-        { voteElection: true},
-        { where: {userId: req.params.idUser, electionId: lastElection.id}}
+        { voteElection: true },
+        { where: { userId: req.params.idUser, electionId: lastElection.id } }
       );
-  
+
       const participantsVoted = await Participant.findAndCountAll({
         where: { electionId: lastElection.id, voteElection: true },
       });
-  
+
       const allParticipants = await Participant.findAndCountAll({
         where: { electionId: lastElection.id },
       });
-  
+
       let participantAbsent = allParticipants.count - participantsVoted.count;
-      const election = await Election.update({votesCast: participantsVoted.count, absentVotes: participantAbsent}, {where: {id: lastElection.id}});
-      return res.status(200).json(election, {message: "Usuario voto en la eleccion, votos actualizados en eleccion"});  
+      const election = await Election.update({ votesCast: participantsVoted.count, absentVotes: participantAbsent }, { where: { id: lastElection.id } });
+      return res.status(200).json({ election, message: "Usuario voto en la eleccion, votos actualizados en eleccion" });
     }
-    else{
-      return res.status(200).json({message: "No es dia de votacion"});
+    else {
+      return res.status(200).json({ message: "No es dia de votacion" });
     }
 
-    
+
   } catch (error) {
+    console.log(error)
     return res.status(500).json(error);
   }
 };
 const verifyUserVoteElection = async (req, res) => {
   try {
     const lastElection = await getLastElection(req.params.idOrganization);
-    if(lastElection.status === "VOTACION"){
-      const participant = await Participant.findOne({where: {userId: req.params.idUser, electionId: lastElection.id}});
+    if (lastElection.status === "VOTACION") {
+      const participant = await Participant.findOne({ where: { userId: req.params.idUser, electionId: lastElection.id } });
 
-      if(participant.voteElection){
-        return res.status(200).json({status:true,message: "Usted voto en la eleccion"});
-      }else{
-        return res.status(200).json({status:false,message: "Vota ahora en la eleccion!"});
+      if (participant.voteElection) {
+        return res.status(200).json({ status: true, message: "Usted voto en la eleccion" });
+      } else {
+        return res.status(200).json({ status: false, message: "Vota ahora en la eleccion!" });
       }
     }
-    else{
-      return res.status(200).json({message: "No es dia de votacion"});
+    else {
+      return res.status(200).json({ message: "No es dia de votacion" });
     }
 
-    
+
   } catch (error) {
     return res.status(500).json(error);
   }

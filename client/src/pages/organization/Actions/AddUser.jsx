@@ -96,7 +96,7 @@ const AddUser = ({updateListUsers,electionInfo}) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await userService.getUsers(idOrganization);
+        const res = await userService.getUsersDiferent(idOrganization);
         setList(res.data);
       } catch (error) {
         message.error("Ocurrio un error");

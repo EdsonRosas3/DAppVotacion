@@ -62,10 +62,10 @@ const Create = ({slopeCreate}) => {
   return (
     <Card style={{ width: "100%" }} bordered={true}>
       <Button type="primary" onClick={showModal}>
-        Crear nuevo organización
+        Crear nueva organización
       </Button>
       <Modal
-        title="REGISTRO DE ORGANIZACION"
+        title="REGISTRO DE ORGANIZACIÓN"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -84,7 +84,7 @@ const Create = ({slopeCreate}) => {
           <Form.Item
             name="name"
             label="Nombre"
-            tooltip="¿Como se llama la organizacion?"
+            tooltip="¿Como se llama la organización?"
             rules={[
               {
                 required: true,
@@ -98,12 +98,12 @@ const Create = ({slopeCreate}) => {
 
           <Form.Item
             name="description"
-            label="descripción"
-            tooltip="¿Que deescripcion tiene?"
+            label="Descripción"
+            tooltip="¿Qué deescripcion tiene?"
             rules={[
               {
                 required: true,
-                message: "¡Por favor ingrese la descripcion!",
+                message: "¡Por favor ingrese la descripción!",
                 whitespace: true,
               },
             ]}
@@ -113,7 +113,7 @@ const Create = ({slopeCreate}) => {
           <Form.Item
             name="reach"
             label="Alcance"
-            tooltip="¿Cual es el alcance de tu organizacion?"
+            tooltip="¿Cual es el alcance de tu organización?"
             rules={[
               {
                 required: true,
@@ -129,10 +129,10 @@ const Create = ({slopeCreate}) => {
           </Form.Item>
           <Form.Item
             name="type"
-            label="Tipo de organizacion"
-            rules={[{ required: true, message: 'Por favor ingrese el tipo de organizacion!' }]}
+            label="Tipo de organización"
+            rules={[{ required: true, message: 'Por favor ingrese el tipo de organización!' }]}
           >
-            <Select placeholder="Seleccione una organizacion">
+            <Select placeholder="Seleccione una organización">
               <Option value="Centralizada">Centralizada</Option>
               <Option value="Descentralizada">Descentralizada</Option>
             </Select>
