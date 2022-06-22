@@ -17,13 +17,6 @@ const Candidate = ({
   const { idOrganization } = useParams();
   const {contract} = useContext(ContractContext);
   const voteNow = async (e) => {
-    /* try {
-      console.log("HWLLO now",contract,block)
-      let voteContractRes = await contract.contractInstance.callStatic().createVote(candidate.id,electionInfo.election.id, { from: contract.account });
-      console.log( "Holas",voteContractRes)
-      //const res = await electionService.userVoteElection(userId, idOrganization);
-      toggleDisable();
-    } catch (error) {} */
     setHandler(candidate.id+"", electionInfo.election.id+"");
   };
 

@@ -77,6 +77,7 @@ const ListPostulante = ({ electionInfo, updateListCandidates,userId }) => {
 	}
 
 	const setHandler = (idCadidato, idElection) => {
+    
 		contract.createVote(idCadidato,idElection);
 	}
 

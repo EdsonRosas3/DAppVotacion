@@ -70,7 +70,7 @@ const createPostulations = async () => {
       userId: 2,
     },
     {
-      nameFront: "Sidicato mixto",
+      nameFront: "Sindicato mixto",
       description: "Conocemos la nesecidades de nuestra gente",
       votesReceived: 0,
       electionId: 1,

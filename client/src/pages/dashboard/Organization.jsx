@@ -8,6 +8,8 @@ import GeneratePDF from "./GeneratePDF";
 import { Row, Col, message,Typography } from "antd";
 import { useParams } from "react-router-dom";
 import { organizationService, electionService } from "../../services";
+import TableResult from "./TableResult";
+import Winner from "./Winner";
 
 const { Title, Text } = Typography;
 const OrganizationOne = () => {
@@ -83,7 +85,12 @@ const OrganizationOne = () => {
               <Title level={2} >REPORTE ESTADISTICO</Title>
             </Col>
             <Col className="gutter-row" span={3}>
-              <GeneratePDF data={data} listResults={listResults}/>
+              <GeneratePDF data={data} 
+                           listResults={listResults}
+                           listCandidates={listResults.candidates} 
+                           votesCast={listResults.election.votesCast} 
+                           absentVotes={listResults.election.absentVotes}
+              />
             </Col>
         </Row>
         <Row gutter={16}>
@@ -104,16 +111,40 @@ const OrganizationOne = () => {
         <Row gutter={16}>
             <Col className="gutter-row" span={5}>
               <b>{"Total de votos: "}</b>
-              {listResults.election.votesCast}
+              {listResults.election.votesCast+listResults.election.absentVotes}
             </Col>
             <Col className="gutter-row" span={5}>
               <b>{"Votos habiles: "}</b>
-              {listResults.election.votesCast-listResults.election.absentVotes}
+              {listResults.election.votesCast}
             </Col>
             <Col className="gutter-row" span={6}>
               <b>{"Votos nulos: "}</b>
               {listResults.election.absentVotes}
             </Col>
+        </Row>
+        <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={4}>
+              </Col>
+              <Col className="gutter-row" span={16}>
+                <TableResult listCandidates={listResults.candidates} 
+                             votesCast={listResults.election.votesCast} 
+                             absentVotes={listResults.election.absentVotes}
+                />
+              </Col>
+              <Col className="gutter-row" span={4}>
+              </Col>
+        </Row>
+        <Row gutter={16} id="ShowTable">
+              <Col className="gutter-row" span={3}>
+              </Col>
+              <Col className="gutter-row" span={16}>
+                <Winner listCandidates={listResults.candidates} 
+                             votesCast={listResults.election.votesCast} 
+                             absentVotes={listResults.election.absentVotes}
+                />
+              </Col>
+              <Col className="gutter-row" span={3}>
+              </Col>
         </Row>
         <div id = "graph">
           <Row gutter={16} id="ShowTable">
@@ -129,7 +160,9 @@ const OrganizationOne = () => {
               <Col className="gutter-row" span={4}>
               </Col>
               <Col className="gutter-row" span={16}>
-                <ShowTable listCandidates={listResults.candidates} />
+                <ShowTable listCandidates={listResults.candidates}
+                absentVotes={listResults.election.absentVotes} 
+                />
               </Col>
               <Col className="gutter-row" span={4}>
               </Col>
@@ -147,7 +180,9 @@ const OrganizationOne = () => {
               <Col className="gutter-row" span={4}>
               </Col>
               <Col className="gutter-row" span={16}>
-                <ShowGraph listCandidates={listResults.candidates}/>
+                <ShowGraph listCandidates={listResults.candidates}
+                           absentVotes={listResults.election.absentVotes} 
+                />
               </Col>
               <Col className="gutter-row" span={4}>
               </Col>
@@ -165,7 +200,10 @@ const OrganizationOne = () => {
               <Col className="gutter-row" span={4}>
               </Col>
               <Col className="gutter-row" span={16}>
-                <ShowPie listCandidates={listResults.candidates} votesCast={listResults.election.votesCast} />
+                <ShowPie listCandidates={listResults.candidates} 
+                         votesCast={listResults.election.votesCast} 
+                         absentVotes={listResults.election.absentVotes}
+                />
               </Col>
               <Col className="gutter-row" span={4}>
               </Col>
