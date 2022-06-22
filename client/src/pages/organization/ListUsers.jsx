@@ -31,7 +31,7 @@ const ListUsers = ({ updateListUser }) => {
   }, [updateListUser]);
   return (
     <>
-      <Title level={5}>Integrantes:</Title>
+      <Title level={5}>Miembros de la organización:</Title>
       <Card bordered={true}>
         <List>
           <VirtualList

@@ -112,7 +112,7 @@ const AddUser = ({updateListUsers,electionInfo}) => {
         Agregar miembros
       </Button>
       <Modal
-        title="Agregar usuarios"
+        title="Agregar nuevos integrantes"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

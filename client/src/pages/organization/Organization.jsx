@@ -135,7 +135,7 @@ const OrganizationOne = () => {
           </p>
           {showAcceptElecction && data.type === "DESCENTRALIZADA"?(
             <Button onClick={acepatarElection} type="danger">
-              Aceptar eleccion
+              Aceptar elección
             </Button>
           ):""}
         </Card>

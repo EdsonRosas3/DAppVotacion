@@ -1,7 +1,7 @@
-import React, { useState,useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, message } from "antd";
 import { Form, Input } from "antd";
-import {postulantService} from "../../../services"
+import { postulantService } from "../../../services"
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -21,7 +21,7 @@ const formItemLayout = {
   },
 };
 
-const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganization}) => {
+const Postulate = ({ electionInfo, updateOrganizationEvent, userId, typeOrganization }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [disabledStatus, setDisabledStatus] = useState(true);
   const showModal = () => {
@@ -35,11 +35,11 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  
+
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     try {
-      const res = await postulantService.addPostulation(electionInfo.election.id,userId,values)
+      const res = await postulantService.addPostulation(electionInfo.election.id, userId, values)
       message.success(res.data.message)
       handleOk();
       updateOrganizationEvent();
@@ -90,12 +90,12 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
   useEffect(() => {
     const fetchData = async () => {
       handlerStatusBtn();
-      if(electionInfo.election){
-        if(!electionInfo.election.statusAccept){
+      if (electionInfo.election) {
+        if (!electionInfo.election.statusAccept) {
           setDisabledStatus(true)
         }
-        const res  = await postulantService.isCandidate(electionInfo.election.id,userId)
-        if(res.data.isCandidate){ 
+        const res = await postulantService.isCandidate(electionInfo.election.id, userId)
+        if (res.data.isCandidate) {
           setDisabledStatus(true)
         }
       }
@@ -118,6 +118,8 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
         onCancel={handleCancel}
         footer={null}
       >
+
+
         <Form
           {...formItemLayout}
           form={form}
@@ -131,7 +133,7 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
         >
           <Form.Item
             name="description"
-            label="Descripcion"
+            label="Descripción"
             tooltip="¿una descripcion del candidato?"
             rules={[
               {
@@ -143,10 +145,9 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name="nameFront"
-            label="Nombre de partido"
+            label="Nombre del partido"
             tooltip="Nombre del partido o postulante"
             rules={[
               {
@@ -158,6 +159,7 @@ const Postulate = ({ electionInfo,updateOrganizationEvent,userId, typeOrganizati
           >
             <Input />
           </Form.Item>
+
 
           <Form.Item {...tailFormItemLayout} style={{ margin: "1em" }}>
             <Button onClick={handleCancel} style={{ marginRight: "1em" }}>

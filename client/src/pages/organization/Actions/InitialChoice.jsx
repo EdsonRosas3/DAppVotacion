@@ -122,14 +122,14 @@ const Choice = ({electionInfo,updateOrganizationEvent}) => {
       <Button type="primary" disabled={disabledStatus} onClick={showModal}>
         Iniciar eleccion
       </Button>
-      <Modal title="Inicia una eleccion" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+      <Modal title="Inicia una elección" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
         <Form name="time_related_controls" {...formItemLayout} onFinish={onFinish}>
           
-          <Form.Item name="range" label="fechas de postulación" {...rangeConfig}>
+          <Form.Item name="range" label="Fechas de postulación" {...rangeConfig}>
             <RangePicker />
           </Form.Item>
 
-          <Form.Item name="date" label="Dia de votación" {...config}>
+          <Form.Item name="date" label="Día de votación" {...config}>
             <DatePicker />
           </Form.Item>
           <Row gutter={16} style={{margin:"2em"}}>
